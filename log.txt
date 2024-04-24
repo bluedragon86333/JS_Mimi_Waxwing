@@ -1,0 +1,8 @@
+May 2023
+Made the project and promptly abandoned it after many, many, issues.
+
+
+4/24/2024
+Fixed screen flicker bug
+Sprites without canLeaveScreen enabled now stop at the edge of the screen 
+Completely refactored drawing code to take advantage of atlas system

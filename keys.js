@@ -1,0 +1,40 @@
+var key = {
+	"up":false,
+	"down":false,
+	"right":false,
+	"left":false
+};
+
+document.body.onkeydown = function(e) {
+	if (e.keyCode == 37) {
+		key.left = true;
+		//moveleft();
+	}
+	if (e.keyCode == 38) {
+		key.up = true;
+		//moveup();
+	}
+	if (e.keyCode == 39) {
+		key.right = true;
+		//moveright();
+	}
+	if (e.keyCode == 40) {
+		key.down = true;
+		//movedown();
+	}
+}
+
+document.body.onkeyup = function(e) {
+	if (e.keyCode == 37) {
+		key.left = false;
+	}
+	if (e.keyCode == 38) {
+		key.up = false;
+	}
+	if (e.keyCode == 39) {
+		key.right = false;
+	}
+	if (e.keyCode == 40) {
+		key.down = false;
+	}
+}
