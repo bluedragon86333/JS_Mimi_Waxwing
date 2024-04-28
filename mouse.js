@@ -26,8 +26,8 @@ canvas.addEventListener("mouseup", function (evt) {
 function getMousePos(canvas, evt) {
     var rect = canvas.getBoundingClientRect();
     return {
-        x: Math.round((evt.clientX - rect.left) / 2),
-        y: Math.round((evt.clientY - rect.top) / 2)
+        x: Math.round((evt.clientX - rect.left) / 3),
+        y: Math.round((evt.clientY - rect.top) / 3)
     };
 }
 	
@@ -53,8 +53,8 @@ function getPosition(event){
     
     x -= canvas.offsetLeft;
     y -= canvas.offsetTop;
-	x = Math.round(x / 2);
-	y = Math.round(y / 2);
+	x = Math.round(x / 3);
+	y = Math.round(y / 3);
 	
 	mouseX = x;
 	mouseY = y;

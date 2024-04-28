@@ -8,12 +8,12 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	direction = 0;
 	size = 1; //scale factor of an object
 	show = true;
-	frameNum = 0;
+	currentFrame = 0;
 	frameTics = 0;
 	
 	costumes = []; //loose costumes- static frames, idle poses, etc. not animations!!
 	currentCostume = new Costume("",this.x,this.y,this.width,this.height);
-	animationActive = false;
+	animationActive = -1;
 	canLeaveScreen = false;
 	animations = [];
 	constructor() {
@@ -34,7 +34,11 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	};
 	
 	draw = function() {
-		drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+		if (this.animationActive == -1) {
+			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+		} else {
+			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+		}
 	};
 
 	
@@ -50,14 +54,15 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	addAnimation = function(name,tlx,tly,width,height,numOfFrames,frameDuration) { //frames are assumed to be left to right, horizontally
 		let frames = [];
 		for (let i = 0; i < numOfFrames; i++) {
-			frames.push(new AnimationFrame(name + "_" + i,tlx + i * width,tly,width,height,frameDuration));
+			//onsole.log("frameDuration = " + frameDuration);
+			frames.push(new AnimationFrame((name + "_" + i),(tlx + (i * width)),tly,width,height,frameDuration));
 		}
 		let anim = new Animation(name,frames);
 		this.animations.push(anim);
 	}
 	
 	setCurrentCostume = function(name) {
-		if (this.animationActive == false)
+		if (this.animationActive == -1)
 		{
 			//this.currentCostume.name = name;
 			for (let i = 0; i < this.costumes.length; i++) {
@@ -69,14 +74,56 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		}
 		else
 		{
-			let i = this.animationActive;
+			//let i = this.animationActive;
 			//for (let i = 0; i < this.animations.length; i++) {
 				//if (name == this.animations[i].name) {
-					this.currentCostume = this.animations[i].frames[0];					
+					this.currentCostume = this.animations[this.animationActive].frames[this.currentFrame].getCostume();	
+					//console.log("currentCostume: " + this.currentCostume);
 					return;
 				//}
 			//}
 		}
+	}
+	
+	setAnimation = function(name) {
+		
+		for (let i = 0; i < this.animations.length; i++) {
+			if (this.animations[i].name == name) {
+				this.animationActive = i;	
+				this.frameTics = 0;
+				this.currentFrame = 0;
+				this.setCurrentCostume();
+				console.log("animation set to " + name);
+				return;
+			}
+		}
+	}
+	
+	animationProcess = function() {
+		if (this.animationActive != -1) {
+			let dur = this.animations[this.animationActive].frames[this.currentFrame].duration;
+			//console.log("frameTics = " + this.frameTics + ", currentFrame = " + this.currentFrame, ", length of animation = " + this.animations[this.animationActive].frames.length);
+			if (dur <= this.frameTics) { //if time to go to next frame of animation...
+				//this.setCurrentCostume();
+				this.currentFrame++;
+				this.frameTics = 0; //set tics to 0
+				if (this.animations[this.animationActive].frames.length == this.currentFrame) { //if reached end of animation...
+					this.currentFrame = 0; //...go back to the beginning
+					
+				}
+				else {
+					//this.currentFrame++;
+				}
+				this.setCurrentCostume();
+			}
+			else {
+				this.frameTics++;
+			}
+		}
+	}
+	
+	tick = function() { //use super() to call this method in any subclasses of Sprite - contains all frame-to-frame processes necessary
+		this.animationProcess();
 	}
 }
 
@@ -117,4 +164,8 @@ class MovingSprite extends Sprite {
 			}
 		}
 	};
+	
+	process = function() {
+		this.super.process();
+	}
 }

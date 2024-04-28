@@ -14,7 +14,7 @@ var coins = new CoinCollection();
 function init() {
 	initAtlas();
 	
-	player.init();
+	//player.init();
 	loadImages();
 	coins.addCoin(new Coin(200,100,1));
 	coins.addCoin(new Coin(24,150,1));
@@ -24,12 +24,14 @@ function init() {
 
 
 function process() {
+	//console.log("process() called");
 	player.process();
 	coins.process();
 }
 
 
 function draw() {
+	context.clearRect(0, 0, 256,192);
 	
 	drawImgFromAtlas("onion_green",0,50);
 	drawImgFromAtlas("onion_green",mouseX,mouseY);
@@ -41,7 +43,7 @@ function draw() {
 }
 
 var mainloop = setInterval(function() {
-	context.clearRect(0, 0, 256,192);
+	
 	draw();
 	process();
 	

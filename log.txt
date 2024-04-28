@@ -16,3 +16,6 @@ TODO:
 Added basic UI bar that effectively acts like the edge of the screen for sprites
 Added static coins
 Added Animation and AnimationFrame classes; refactored costumes
+
+4/28/2024
+Made canvas a bit bigger- 3x instead of 2x

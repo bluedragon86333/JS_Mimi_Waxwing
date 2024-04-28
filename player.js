@@ -1,17 +1,18 @@
 class Player extends MovingSprite {
-	init() {
+	constructor()
+	{
+		super();
 		this.setVel(2,2);
 		this.moveTo(100,50);
 		this.width = 16;
-		this.height = 22;
+		this.height = 16;
 		this.size = 1;
-		this.addCostume("onion",0,0,16,24);
-		this.setCurrentCostume("onion");
-
-		
+		this.addCostume("side_walk_0",0,48,16,16);
+		this.addAnimation("side_walk",0,48,16,16,5,4);
+		this.setAnimation("side_walk");
 	}
 	
-	keyInput() {
+	keyInput = function () {
 		if (key.up) {
 			this.y -= this.yv;
 		}
@@ -28,9 +29,12 @@ class Player extends MovingSprite {
 	
 	
 	
-	process() {
+	process = function() {
+		//console.log("player.process() called");
+		this.tick();
 		this.keyInput();
 		this.checkBounds();
+		
 	}
 	
 
