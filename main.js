@@ -8,7 +8,7 @@ var context = canvas.getContext('2d');
 
 var player = new Player();
 var coins = new CoinCollection();
-var testCoin = new Coin(24,150,1);
+
 
 
 function init() {
@@ -17,6 +17,7 @@ function init() {
 	player.init();
 	loadImages();
 	coins.addCoin(new Coin(200,100,1));
+	coins.addCoin(new Coin(24,150,1));
 	//addAtlas("onion",0,0,16,32);
 	addAtlas("onion_green",32,16,16,32);
 }
@@ -33,9 +34,7 @@ function draw() {
 	drawImgFromAtlas("onion_green",0,50);
 	drawImgFromAtlas("onion_green",mouseX,mouseY);
 	player.draw();
-	coins.draw();
-	testCoin.draw();
-	
+	coins.draw();	
 	
 	drawUI();
 	

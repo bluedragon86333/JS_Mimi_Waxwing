@@ -5,8 +5,8 @@ class Coin extends Sprite {
 		this.width = 8;
 		this.height = 8;
 		this.value = value;
-		this.addAnimation("coin_spin",16,0,8,8,4);
-		this.addCostume("default",16,8,8,8);
+		this.addAnimation("coin_spin",32,0,8,8,4);
+		this.addCostume("default",32,8,8,8);
 		//this.animationActive = 0;
 		
 		this.setCurrentCostume("default");
