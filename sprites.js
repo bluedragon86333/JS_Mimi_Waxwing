@@ -1,7 +1,8 @@
 class Sprite { //an assumption this class makes is that all costumes will be the same size. This may backfire eventually...
 	x = 0;
 	y = 0;
-	xv = 0;
+	speed = 0; //increment for x and y velocities
+	xv = 0; //real velocity
 	yv = 0;
 	width = 16;
 	height = 16;
@@ -10,7 +11,8 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	show = true;
 	currentFrame = 0;
 	frameTics = 0;
-	
+	flipsHorizontally = false; //if true, moving left sets flip to true
+	flip = false;
 	costumes = []; //loose costumes- static frames, idle poses, etc. not animations!!
 	currentCostume = new Costume("",this.x,this.y,this.width,this.height);
 	animationActive = -1;
@@ -34,10 +36,11 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	};
 	
 	draw = function() {
+		this.flip = (this.xv < 0 && this.flipsHorizontally);
 		if (this.animationActive == -1) {
-			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size,this.flip);
 		} else {
-			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size,this.flip);
 		}
 	};
 

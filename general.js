@@ -68,7 +68,7 @@ function addAtlas(costumeName,x,y,w,h) {
 	atlasData.push([costumeName,x,y,w,h]);
 }
 
-function drawImgFromAtlas(name,sx,sy,swidth,sheight,dx,dy,dwidth,dheight) {
+function drawImgFromAtlas(name,sx,sy,swidth,sheight,dx,dy,dwidth,dheight,flip) {
 	
 	if (arguments.length == 3)
 	{
@@ -82,6 +82,10 @@ function drawImgFromAtlas(name,sx,sy,swidth,sheight,dx,dy,dwidth,dheight) {
 	}
 	else
 	{
+		if (flip) {
+			let img = new Image(image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
+			drawer.flipHorizontally(img,dx,dy);
+		}
 		image = atlas;
 		context.drawImage(image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
 	}
@@ -119,6 +123,22 @@ class BasicDrawing {
 		context.fillStyle = color;
 		context.fillRect(tlx,tly,width,height);
 	}
+	
+	flipHorizontally = function(img,x,y){
+		// move to x + img's width
+		context.translate(x+img.width,y);
+
+		// scaleX by -1; this "trick" flips horizontally
+		context.scale(-1,1);
+		
+		// draw the img
+		// no need for x,y since we've already translated
+		context.drawImage(img,0,0);
+		
+		// always clean up -- reset transformations to default
+		context.setTransform(1,0,0,1,0,0);
+	}
 }
 
 var drawer = new BasicDrawing();
+

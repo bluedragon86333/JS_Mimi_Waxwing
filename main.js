@@ -50,4 +50,4 @@ var mainloop = setInterval(function() {
 	if (1 == 0) {
 		clearInterval(mainloop);
 	}
-}, framerate);
+}, 1000 / framerate);
