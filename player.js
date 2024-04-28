@@ -1,5 +1,15 @@
 class Player extends Sprite {
-	
+	init() {
+		this.setVel(2,2);
+		this.moveTo(100,50);
+		this.width = 16;
+		this.height = 22;
+		this.size = 1;
+		this.addCostume("onion",0,0,16,24);
+		this.setCurrentCostume("onion");
+
+		
+	}
 	
 	keyInput() {
 		if (key.up) {
@@ -23,13 +33,5 @@ class Player extends Sprite {
 		this.checkBounds();
 	}
 	
-	init() {
-		this.setVel(2,2);
-		this.moveTo(100,50);
-		this.width = 16;
-		this.addCostume("onion",0,0);
-		this.setCurrentCostume("onion");
-		this.height = 22;
-		this.size = 1;
-	}
+
 }

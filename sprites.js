@@ -8,14 +8,14 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	direction = 0;
 	size = 1; //scale factor of an object
 	show = true;
-	costume = {
-		"name":"",
-		"x":"", //source x in atlas
-		"y":"" //source y in atlas
-	};
 	
-	costumes = [];
+	
+	costumes = []; //loose costumes- static frames, idle poses, etc. not animations!!
+	currentCostume = new Costume("",this.x,this.y,this.width,this.height);
+	animationActive = false;
 	canLeaveScreen = false;
+	animations = [];
+	
 	
 	moveSteps = function(stepCount) {
 		this.x += Math.cos(this.direction);
@@ -40,7 +40,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	};
 	
 	draw = function() {
-		drawImgFromAtlas(this.costume.name,this.costume.x,this.costume.y,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
+		drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
 	};
 	
 	setVel = function(newXV,newYV) {
@@ -60,25 +60,42 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 				this.y = 0;
 			}
 			if (this.y + this.height > canvas.height) {
-				this.y = canvas.height - this.height;
+				this.y = game.height - game.height;
 			}
 		}
 	};
 	
-	addCostume = function(name,sx,sy) {
-		this.costumes.push([name,sx,sy]);
+	addCostume = function(name,sx,sy,w,h) {
+		if (arguments.length == 3)
+		{
+			w = this.width;
+			h = this.height;
+		}
+		this.costumes.push(new Costume(name,sx,sy,w,h));
+	}
+	
+	addAnimation = function(name,tlx,tly,width,height,numOfFrames,frameDuration) { //frames are assumed to be left to right, horizontally
+		let frames = [];
+		for (let i = 0; i < numOfFrames; i++) {
+			frames.push(new AnimationFrame(name + "_" + i,tlx + i * width,tly,width,height,frameDuration));
+		}
+		let anim = new Animation(name,frames);
+		this.animations.push(anim);
 	}
 	
 	setCurrentCostume = function(name) {
-		this.costume.name = name;
-		for (let i = 0; i < this.costumes.length; i++) {
-			if (name == this.costumes[i][0]) {
-				this.costume.x = this.costumes[i][1];
-				this.costume.y = this.costumes[i][2];
-				
-				return;
+		if (this.animationActive) {
+			
+		}
+		else
+		{
+			//this.currentCostume.name = name;
+			for (let i = 0; i < this.costumes.length; i++) {
+				if (name == this.costumes[i][0]) {
+					this.currentCostume = this.costumes[i];					
+					return;
+				}
 			}
 		}
-		
 	}
 }

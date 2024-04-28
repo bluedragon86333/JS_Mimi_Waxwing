@@ -6,3 +6,10 @@ Made the project and promptly abandoned it after many, many, issues.
 Fixed screen flicker bug
 Sprites without canLeaveScreen enabled now stop at the edge of the screen 
 Completely refactored drawing code to take advantage of atlas system
+
+TODO: 
+	add the waxwing atlas and import all the data
+	add animation code as an extension of the basic sprite, which moves but just has static animation
+	add tiles (long)
+
+4/27/2024

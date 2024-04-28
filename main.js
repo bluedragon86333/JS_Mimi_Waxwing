@@ -1,11 +1,14 @@
 const framerate = 25;
-
+const screen = {
+	"width":256,
+	"height":192
+};
 const canvas = document.getElementById('game-canvas'); 
 var context = canvas.getContext('2d');
 
 
 var player = new Player();
-
+var coins = [];
 
 
 
@@ -14,7 +17,7 @@ function init() {
 	
 	player.init();
 	loadImages();
-	
+	coins.push(new Coin(200,100,1));
 	addAtlas("onion",0,0,16,32);
 	addAtlas("onion_green",32,16,16,32);
 }
@@ -27,9 +30,10 @@ function process() {
 
 function draw() {
 	
-	drawImgFromAtlas("onion_green",0,0);
+	drawImgFromAtlas("onion_green",0,50);
 	drawImgFromAtlas("onion",mouseX,mouseY);
 	player.draw();
+	drawUI();
 }
 
 var mainloop = setInterval(function() {

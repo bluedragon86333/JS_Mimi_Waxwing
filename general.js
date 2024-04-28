@@ -1,3 +1,5 @@
+
+
 var images = [];
 const imgRoot = "./";
 
@@ -110,3 +112,13 @@ function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY
   context.rotate( -angleInRad );
   context.translate( -positionX, -positionY );
 }
+
+class BasicDrawing {
+	fillRect = function(tlx,tly,width,height,color)
+	{
+		context.fillStyle = color;
+		context.fillRect(tlx,tly,width,height);
+	}
+}
+
+var drawer = new BasicDrawing();
