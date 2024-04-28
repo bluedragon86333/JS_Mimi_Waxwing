@@ -8,23 +8,17 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	direction = 0;
 	size = 1; //scale factor of an object
 	show = true;
-	
+	frameNum = 0;
+	frameTics = 0;
 	
 	costumes = []; //loose costumes- static frames, idle poses, etc. not animations!!
 	currentCostume = new Costume("",this.x,this.y,this.width,this.height);
 	animationActive = false;
 	canLeaveScreen = false;
 	animations = [];
-	
-	
-	moveSteps = function(stepCount) {
-		this.x += Math.cos(this.direction);
-		this.y += Math.sin(this.direction);
-	};
-	
-	moveSteps = function(degrees) {
-		this.direction -= degrees;
-	};
+	constructor() {
+		
+	}
 	
 	turnRight = function(degrees) {
 		this.direction += degrees;
@@ -42,28 +36,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	draw = function() {
 		drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size);
 	};
-	
-	setVel = function(newXV,newYV) {
-		this.xv = newXV;
-		this.yv = newYV;
-	};
-	
-	checkBounds = function() {
-		if (!this.canLeaveScreen) {
-			if (this.x < 0) {
-				this.x = 0;
-			}
-			if (this.x + this.width > canvas.width) {
-				this.x = canvas.width - this.width;
-			}
-			if (this.y < 0) {
-				this.y = 0;
-			}
-			if (this.y + this.height > canvas.height) {
-				this.y = game.height - game.height;
-			}
-		}
-	};
+
 	
 	addCostume = function(name,sx,sy,w,h) {
 		if (arguments.length == 3)
@@ -84,18 +57,64 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	}
 	
 	setCurrentCostume = function(name) {
-		if (this.animationActive) {
-			
-		}
-		else
+		if (this.animationActive == false)
 		{
 			//this.currentCostume.name = name;
 			for (let i = 0; i < this.costumes.length; i++) {
-				if (name == this.costumes[i][0]) {
+				if (name == this.costumes[i].name) {
 					this.currentCostume = this.costumes[i];					
 					return;
 				}
 			}
 		}
+		else
+		{
+			let i = this.animationActive;
+			//for (let i = 0; i < this.animations.length; i++) {
+				//if (name == this.animations[i].name) {
+					this.currentCostume = this.animations[i].frames[0];					
+					return;
+				//}
+			//}
+		}
 	}
+}
+
+class MovingSprite extends Sprite {
+	constructor() {
+		super();
+	}
+	
+	
+	moveSteps = function(stepCount) {
+		this.x += Math.cos(this.direction);
+		this.y += Math.sin(this.direction);
+	};
+	
+	moveSteps = function(degrees) {
+		this.direction -= degrees;
+	};
+	
+
+	setVel = function(newXV,newYV) {
+		this.xv = newXV;
+		this.yv = newYV;
+	};
+	
+	checkBounds = function() {
+		if (!this.canLeaveScreen) {
+			if (this.x < 0) {
+				this.x = 0;
+			}
+			if (this.x + this.width > canvas.width) {
+				this.x = game.window.width - this.width;
+			}
+			if (this.y < game.window.tly) {
+				this.y = game.window.tly;
+			}
+			if (this.y + this.height > canvas.height) {
+				this.y = game.window.bottom - this.height;
+			}
+		}
+	};
 }

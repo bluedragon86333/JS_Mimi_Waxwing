@@ -1,4 +1,4 @@
-class Player extends Sprite {
+class Player extends MovingSprite {
 	init() {
 		this.setVel(2,2);
 		this.moveTo(100,50);

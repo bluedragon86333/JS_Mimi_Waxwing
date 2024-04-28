@@ -13,3 +13,6 @@ TODO:
 	add tiles (long)
 
 4/27/2024
+Added basic UI bar that effectively acts like the edge of the screen for sprites
+Added nonfunctional coin code
+Added Animation and AnimationFrame classes; refactored costumes
