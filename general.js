@@ -83,11 +83,17 @@ function drawImgFromAtlas(name,sx,sy,swidth,sheight,dx,dy,dwidth,dheight,flip) {
 	else
 	{
 		if (flip) {
-			let img = new Image(image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
-			drawer.flipHorizontally(img,dx,dy);
+			image = atlas;
+			context.translate(dx+image.width,dy);
+			context.scale(-1,1);
+			context.drawImage(image, sx, sy, swidth, sheight, 0, 0, dwidth, dheight);
+			context.setTransform(1,0,0,1,0,0);
+			
+			//drawer.flipHorizontally(img,dx,dy);
+		} else {
+			image = atlas;
+			context.drawImage(image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
 		}
-		image = atlas;
-		context.drawImage(image, sx, sy, swidth, sheight, dx, dy, dwidth, dheight);
 	}
 	/*
 	for (let i = 0; i < atlasData.length; i++) {

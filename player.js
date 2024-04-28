@@ -8,14 +8,16 @@ class Player extends MovingSprite {
 		this.height = 16;
 		this.speed = 2;
 		this.size = 1;
-		this.flipsHorizontally = true;
-		this.addCostume("side_walk_0",0,48,16,16);
-		this.addCostume("up_walk_0",0,64,16,16);
-		this.addCostume("down_walk_0",0,80,16,16);
-		this.addAnimation("side_walk",0,48,16,16,5,2);
-		this.addAnimation("up_walk",0,64,16,16,5,2);
-		this.addAnimation("down_walk",0,80,16,16,5,2);
-		this.setCurrentCostume("side_walk_0");
+		//this.flipsHorizontally = true;
+		this.addCostume("left_walk_0",0,48,16,16);
+		this.addCostume("right_walk_0",0,64,16,16);
+		this.addCostume("up_walk_0",0,80,16,16);
+		this.addCostume("down_walk_0",0,96,16,16);
+		this.addAnimation("left_walk",0,48,16,16,5,2);
+		this.addAnimation("right_walk",0,64,16,16,5,2);
+		this.addAnimation("up_walk",0,80,16,16,5,2);
+		this.addAnimation("down_walk",0,96,16,16,5,2);
+		this.setCurrentCostume("right_walk_0");
 	}
 	
 	keyInput = function () {
@@ -48,8 +50,10 @@ class Player extends MovingSprite {
 		}
 		if (oldv[0] != this.xv || oldv[1] != this.yv) { //if direction has changed
 		
-			if (this.xv != 0) {
-				this.setAnimation("side_walk");
+			if (this.xv > 0) {
+				this.setAnimation("right_walk");
+			} else if (this.xv < 0) {
+				this.setAnimation("left_walk");
 			}
 			else if (this.yv > 0) {
 				this.setAnimation("down_walk");
