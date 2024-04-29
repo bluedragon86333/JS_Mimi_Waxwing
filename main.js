@@ -1,44 +1,64 @@
-const framerate = 25;
+const framerate = 30;
 const screen = {
 	"width":256,
 	"height":192
 };
 const canvas = document.getElementById('game-canvas'); 
 var context = canvas.getContext('2d');
-
-var player = new Player();
-var coins = new CoinCollection();
-
-
+var titleScreen = new TitleScreen();
 
 function init() {
-	initAtlas();
-	
-	//player.init();
-	loadImages();
-	coins.addCoin(new Coin(200,100,1));
-	coins.addCoin(new Coin(24,150,1));
-	//addAtlas("onion",0,0,16,32);
-	addAtlas("onion_green",32,16,16,32);
+	switch(game.status) {
+		case "startup":
+			initAtlas();
+			loadImages();
+			
+			break;
+		case "game":
+			coins.addCoin(new Coin(200,100,1));
+			coins.addCoin(new Coin(24,150,1));
+			//addAtlas("onion",0,0,16,32);
+			addAtlas("onion_green",32,16,16,32);
+			UI.init();
+			break;
+	}
 }
 
 
 function process() {
-	//console.log("process() called");
-	player.process();
-	coins.process();
+	switch(game.status) {
+		case "startup":
+			titleScreen.process();
+			
+			break;
+		case "game":
+			player.process();
+			coins.process();
+			collisions.process();
+			break;
+	}
+
 }
 
 
 function draw() {
-	context.clearRect(0, 0, 256,192);
+	clearScreen();
+	switch(game.status) {
+		case "startup":
+			titleScreen.draw();
+			
+			break;
+		case "game":
+			drawImgFromAtlas("onion_green",0,50);
+			drawImgFromAtlas("onion_green",mouseX,mouseY);
+			player.draw();
+			coins.draw();	
+			UI.draw();
+			break;
+	}
 	
-	drawImgFromAtlas("onion_green",0,50);
-	drawImgFromAtlas("onion_green",mouseX,mouseY);
-	player.draw();
-	coins.draw();	
 	
-	drawUI();
+
 	
 }
 

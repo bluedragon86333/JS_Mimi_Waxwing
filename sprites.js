@@ -96,7 +96,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 				this.frameTics = 0;
 				this.currentFrame = 0;
 				this.setCurrentCostume();
-				console.log("animation set to " + name);
+				//console.log("animation set to " + name);
 				return;
 			}
 		}
@@ -128,14 +128,62 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	tick = function() { //use super() to call this method in any subclasses of Sprite - contains all frame-to-frame processes necessary
 		this.animationProcess();
 	}
+	
+	isTouching = function(other) {
+		return (
+			this.x < other.x + other.width &&
+			this.x + this.width > other.x &&
+			this.y < other.y + other.height &&
+			this.y + this.height > other.y
+		);
+	}
 }
 
 class MovingSprite extends Sprite {
 	constructor() {
 		super();
+		this.hp = 3;
+		this.maxhp = 3;
+		this.invincible = false;
+		this.invisFrameTick = 0;
+	}
+	
+	// HEALTH CODE //////////////////////////////////////
+	setHP = function(hp,max) {
+		this.hp = hp;
+		this.maxhp = max;
+	}
+	
+	die = function() {
+		
+	}
+	takeDamage = function(howMuch) {
+		if (!this.invincible) {
+			this.hp -= howMuch;
+			if (this.hp <= 0) {
+				//DEAD
+				this.die();
+				return;
+			}
+			else {
+				invincible = true;
+				invisFrameTick = 45; //how many frames you're invincible after taking damage. 45 / 30fps = 1.5 seconds.
+			}
+		}
+	}
+	
+	healthProcess = function() {
+		if (this.invincible) {
+			if (this.invisFrameTick == 0) {
+				this.invincible = false;
+			} else {
+				this.invisFrameTick--;
+			}
+		}
 	}
 	
 	
+	// MOVEMENT CODE ////////////////////////////////////
 	moveSteps = function(stepCount) {
 		this.x += Math.cos(this.direction);
 		this.y += Math.sin(this.direction);

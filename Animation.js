@@ -15,7 +15,7 @@ class AnimationFrame extends Costume
 	constructor(nameIn,x,y,w,h,framelength) {
 		super(nameIn,x,y,w,h);
 		this.duration = framelength; //duration measured in frames, for now, at 30fps
-		console.log(this.duration + " from " + framelength);
+		//console.log(this.duration + " from " + framelength);
 	}
 	
 	

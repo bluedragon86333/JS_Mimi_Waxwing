@@ -68,6 +68,12 @@ function addAtlas(costumeName,x,y,w,h) {
 	atlasData.push([costumeName,x,y,w,h]);
 }
 
+function clearScreen() {
+	context.clearRect(0, 0, 256,192);
+}
+
+
+
 function drawImgFromAtlas(name,sx,sy,swidth,sheight,dx,dy,dwidth,dheight,flip) {
 	
 	if (arguments.length == 3)
@@ -143,6 +149,10 @@ class BasicDrawing {
 		
 		// always clean up -- reset transformations to default
 		context.setTransform(1,0,0,1,0,0);
+	}
+	
+	fillScreen = function(color) {
+		this.fillRect(0,0,canvas.width,canvas.height,color);
 	}
 }
 

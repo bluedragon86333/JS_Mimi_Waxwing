@@ -6,13 +6,14 @@ class GeneralData { //stuff that isn't related to playing the game, but about th
 		"tly":32,
 		"bottom":192
 	};
-	
+	over = false;
+	status = "startup";
 	
 }
 
 
 class SaveFile { //contains all variables important for the game
-	coin = 0;
+	carrots = 0;
 	
 }
 

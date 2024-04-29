@@ -1,6 +1,6 @@
 	#game-canvas {
-		width:768px;
-		height:576px;		
+		width:1024px;
+		height:768px;		
 		background-color:#efefef;
 		image-rendering: -moz-crisp-edges;
 		image-rendering: -webkit-crisp-edges;
