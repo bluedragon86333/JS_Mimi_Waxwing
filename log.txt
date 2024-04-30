@@ -25,3 +25,10 @@ Coins can be collected
 
 4/29/2024
 Added extremely simple title screen
+Added text engine with separate fonts for UI labels and main text
+Added unused health code to MovingSprite class
+Added static enemy- Purple Jumping Kaidi
+Made Mimi's ears flap as she walks
+
+4/30/2024
+JumpingKaidi is now animated and can walk around the screen

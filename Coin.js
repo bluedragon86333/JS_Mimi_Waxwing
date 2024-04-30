@@ -2,8 +2,7 @@ class Coin extends Sprite {
 	constructor(x,y,value) {
 		super();
 		this.moveTo(x,y);
-		this.width = 16;
-		this.height = 16;
+		this.setSize(16,16);
 		this.value = value;
 		this.addAnimation("coin_spin",80,0,16,16,4,3);
 		this.addCostume("default",80,0,16,16);

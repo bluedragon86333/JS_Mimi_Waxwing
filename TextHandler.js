@@ -4,10 +4,10 @@ class TextHandler {
 	constructor() {
 		this.fontSize = 1;	
 		this.tileHeight = 8; //height in px of the spritesheet tile
-		this.tileWidth = 8;
+		this.tileWidth = 7;
 		this.fontInfo = [];
 		this.currentFont = "whiteText";
-		this.addFont(384,488,"whiteText",8,8);
+		this.addFont(384,488,"whiteText",7,7);
 		this.addFont(384,440,"white4x6",4,6);
 		
 	}

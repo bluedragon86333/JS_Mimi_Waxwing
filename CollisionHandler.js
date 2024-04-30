@@ -13,6 +13,8 @@ class CollisionHandler {
 		}
 	}
 	
+	
+	
 	process = function() {
 		this.playerCoin();
 	}

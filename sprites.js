@@ -18,6 +18,8 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	animationActive = -1;
 	canLeaveScreen = false;
 	animations = [];
+	hitbox = {"tly":this.y,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
+	
 	constructor() {
 		
 	}
@@ -30,6 +32,11 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		this.x = newX;
 		this.y = newY;
 	};
+	
+	setSize = function(w,h) {
+		this.width = w;
+		this.height = h;
+	}
 	
 	setDir = function(newDeg) {
 		this.direction = newDeg;

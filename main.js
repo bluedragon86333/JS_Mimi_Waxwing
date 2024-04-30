@@ -17,6 +17,7 @@ function init() {
 		case "game":
 			coins.addCoin(new Coin(200,100,1));
 			coins.addCoin(new Coin(24,150,1));
+			enemies.addEnemy(new JumpingKaidi(240,100));
 			//addAtlas("onion",0,0,16,32);
 			addAtlas("onion_green",32,16,16,32);
 			UI.init();
@@ -35,6 +36,7 @@ function process() {
 			player.process();
 			coins.process();
 			collisions.process();
+			enemies.process();
 			break;
 	}
 
@@ -49,6 +51,7 @@ function draw() {
 			
 			break;
 		case "game":
+			enemies.draw();
 			drawImgFromAtlas("onion_green",0,50);
 			drawImgFromAtlas("onion_green",mouseX,mouseY);
 			player.draw();
