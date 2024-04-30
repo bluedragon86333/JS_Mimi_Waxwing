@@ -6,12 +6,17 @@ class SplashScreen {
 class TitleScreen {
 	constructor() {
 		addAtlas("title_logo",432,0,80,48);
+		this.spaceReady = false;
 	}
 	
 	process = function() {
-		if (key.space) {
+
+		if (key.space && this.spaceReady) {
 			game.status = "game";
 			init();
+		}
+		if (!key.space) {
+			this.spaceReady = true;
 		}
 	}
 	
@@ -27,3 +32,26 @@ class TitleScreen {
 	}
 }
 
+
+class DeathScreen {
+	constructor() {
+		this.tic = 0;
+	}
+	
+	process = function() {
+		if (key.space) {
+			game.status = "startup";
+			init();
+		}
+	}
+	
+	draw = function() {
+		this.process();
+		
+		drawer.fillScreen("black");
+		text.print("Game Over",128,140,true,"whiteText");
+		text.print("SPACE TO RESTART",128,150,true,"whiteText");
+	}
+}
+
+var deathScreen = new DeathScreen;

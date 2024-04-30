@@ -18,6 +18,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	animationActive = -1;
 	canLeaveScreen = false;
 	animations = [];
+	dead = false;
 	hitbox = {"tly":this.y,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
 	
 	constructor() {
@@ -177,8 +178,8 @@ class MovingSprite extends Sprite {
 				return;
 			}
 			else {
-				invincible = true;
-				invisFrameTick = 45; //how many frames you're invincible after taking damage. 45 / 30fps = 1.5 seconds.
+				this.invincible = true;
+				this.invisFrameTick = 45; //how many frames you're invincible after taking damage. 45 / 30fps = 1.5 seconds.
 			}
 		}
 	}
@@ -226,8 +227,4 @@ class MovingSprite extends Sprite {
 			}
 		}
 	};
-	
-	process = function() {
-		this.super.process();
-	}
 }

@@ -15,6 +15,11 @@ class GeneralData { //stuff that isn't related to playing the game, but about th
 class SaveFile { //contains all variables important for the game
 	carrots = 0;
 	
+	
+	erase = function() {
+		this.carrots = 0;
+	}
+	
 }
 
 

@@ -32,3 +32,4 @@ Made Mimi's ears flap as she walks
 
 4/30/2024
 JumpingKaidi is now animated and can walk around the screen
+Added BigJumpingKaidi

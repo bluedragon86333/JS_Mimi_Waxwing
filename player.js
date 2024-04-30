@@ -80,10 +80,13 @@ class Player extends MovingSprite {
 	process = function() {
 		//console.log("player.process() called");
 		this.tick();
+		this.healthProcess();
 		this.keyInput();
 		this.checkBounds();
 		
 	}
 	
-
+	die = function() {
+		game.status = "gameOver";
+	}
 }
