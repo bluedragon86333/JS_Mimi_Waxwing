@@ -1,3 +1,8 @@
+class SplashScreen {
+	
+	
+}
+
 class TitleScreen {
 	constructor() {
 		addAtlas("title_logo",432,0,80,48);

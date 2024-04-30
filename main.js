@@ -18,6 +18,7 @@ function init() {
 			coins.addCoin(new Coin(200,100,1));
 			coins.addCoin(new Coin(24,150,1));
 			enemies.addEnemy(new JumpingKaidi(240,100));
+			enemies.addEnemy(new BigJumpingKaidi(240,150));
 			//addAtlas("onion",0,0,16,32);
 			addAtlas("onion_green",32,16,16,32);
 			UI.init();

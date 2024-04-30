@@ -109,6 +109,10 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		}
 	}
 	
+	deleteAllAnimations = function() {
+		this.animations = [];
+	}
+	
 	animationProcess = function() {
 		if (this.animationActive != -1) {
 			let dur = this.animations[this.animationActive].frames[this.currentFrame].duration;
