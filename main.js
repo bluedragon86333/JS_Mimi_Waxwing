@@ -17,6 +17,10 @@ function init() {
 			break;
 		case "game":
 			saveFile.erase();
+			coins.coins = [];
+			enemies.enemies = [];
+			
+			//from here to the next comment, everything is temporary.
 			coins.addCoin(new Coin(200,100,1));
 			coins.addCoin(new Coin(24,150,1));
 			enemies.addEnemy(new JumpingKaidi(240,100));
@@ -25,6 +29,7 @@ function init() {
 			addAtlas("onion_green",32,16,16,32);
 			UI.init();
 			player = new Player();
+			level.init();
 			break;
 		case "gameOver":
 			deathScreen = new DeathScreen();
@@ -58,6 +63,7 @@ function draw() {
 			
 			break;
 		case "game":
+			level.drawTiles();
 			enemies.draw();
 			drawImgFromAtlas("onion_green",0,50);
 			drawImgFromAtlas("onion_green",mouseX,mouseY);

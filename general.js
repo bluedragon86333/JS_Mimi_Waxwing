@@ -65,7 +65,9 @@ function drawImg(name,x,y,width,height,direction) {
 }
 
 function addAtlas(costumeName,x,y,w,h) {
-	atlasData.push([costumeName,x,y,w,h]);
+	if (!atlasData.includes([costumeName,x,y,w,h])) {
+		atlasData.push([costumeName,x,y,w,h]);
+	}
 }
 
 function clearScreen() {

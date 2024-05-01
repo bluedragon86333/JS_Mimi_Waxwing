@@ -20,6 +20,8 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	animations = [];
 	dead = false;
 	hitbox = {"tly":this.y,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
+	visible = true;
+	solid = false; //if true, MovingSprites can't overlap with it
 	
 	constructor() {
 		
@@ -44,6 +46,9 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	};
 	
 	draw = function() {
+		if (!this.visible) {
+			return;
+		}
 		this.flip = (this.xv < 0 && this.flipsHorizontally);
 		if (this.animationActive == -1) {
 			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size,this.flip);
@@ -158,6 +163,7 @@ class MovingSprite extends Sprite {
 		this.maxhp = 3;
 		this.invincible = false;
 		this.invisFrameTick = 0;
+		this.invisLength = 45; //how many frames you're invincible after taking damage. 45 / 30fps = 1.5 seconds.
 	}
 	
 	// HEALTH CODE //////////////////////////////////////
@@ -179,7 +185,7 @@ class MovingSprite extends Sprite {
 			}
 			else {
 				this.invincible = true;
-				this.invisFrameTick = 45; //how many frames you're invincible after taking damage. 45 / 30fps = 1.5 seconds.
+				this.invisFrameTick = this.invisLength;
 			}
 		}
 	}

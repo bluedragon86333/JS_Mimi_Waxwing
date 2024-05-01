@@ -18,7 +18,7 @@ Added static coins
 Added Animation and AnimationFrame classes; refactored costumes
 
 4/28/2024
-Made canvas a bit bigger- 3x instead of 2x
+Made canvas a bit bigger- 4x instead of 2x
 Animations work now for coins and player
 Holding space makes player go faster
 Coins can be collected
@@ -33,3 +33,5 @@ Made Mimi's ears flap as she walks
 4/30/2024
 JumpingKaidi is now animated and can walk around the screen
 Added BigJumpingKaidi
+Added player health bar, made player flicker after touching enemy, added game over screen
+

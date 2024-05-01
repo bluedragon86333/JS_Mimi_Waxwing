@@ -21,6 +21,8 @@ class Player extends MovingSprite {
 		this.addAnimation("up_walk",16,80,16,16,4,2);
 		this.addAnimation("down_walk",16,96,16,16,4,2);
 		this.setCurrentCostume("right_walk_0");
+		this.visible = true;
+		this.invisLength = 60;
 		
 	}
 	
@@ -75,11 +77,23 @@ class Player extends MovingSprite {
 
 	}
 	
-	
+	invisFrames = function() {
+		if (this.invincible) {
+			if (this.invisFrameTick < 20) {
+				this.visible = (this.invisFrameTick % 3 == 0);
+			} else {
+				this.visible = (this.invisFrameTick % 10 < 5);
+			}
+		}
+		else {
+			this.visible = true;
+		}
+	}
 	
 	process = function() {
 		//console.log("player.process() called");
 		this.tick();
+		this.invisFrames();
 		this.healthProcess();
 		this.keyInput();
 		this.checkBounds();

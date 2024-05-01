@@ -30,9 +30,14 @@ class CollisionHandler {
 		}
 	}
 	
+	playerWall = function() {
+		
+	}
+	
 	process = function() {
 		this.playerCoin();
 		this.playerEnemy();
+		this.playerWall();
 	}
 }
 
