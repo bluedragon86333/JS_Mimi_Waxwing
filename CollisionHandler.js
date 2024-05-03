@@ -20,6 +20,10 @@ class CollisionHandler {
 	
 	playerEnemy = function() {
 		for (let i = 0; i < enemies.enemies.length; i++) {
+			//sneaking in the wall code here
+			
+			this.wall(enemies.enemies[i]);
+			
 			if (player.isTouching(enemies.enemies[i])) {
 				//console.log("took damage from enemy");
 				player.takeDamage(0.5);
@@ -30,14 +34,21 @@ class CollisionHandler {
 		}
 	}
 	
-	playerWall = function() {
-		
+	wall = function(sprite) {
+		for (let i = 0; i < level.tiles.length; i++) {
+			if (sprite.isTouching(level.tiles[i]) && level.tiles[i].solid) {
+				//console.log("hit wall");
+				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
+				sprite.reachedEdge();
+				return;
+			}
+		}
 	}
 	
 	process = function() {
 		this.playerCoin();
 		this.playerEnemy();
-		this.playerWall();
+		this.wall(player);
 	}
 }
 

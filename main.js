@@ -7,6 +7,17 @@ const canvas = document.getElementById('game-canvas');
 var context = canvas.getContext('2d');
 var titleScreen = new TitleScreen();
 
+
+		function DownloadCanvasAsImage(){
+			let downloadLink = document.createElement('a');
+			downloadLink.setAttribute('download', 'CanvasAsImage.png');
+			let canvas = document.getElementById('game-canvas');
+			let dataURL = canvas.toDataURL('image/png');
+			let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
+			downloadLink.setAttribute('href', url);
+			downloadLink.click();
+		}
+		
 function init() {
 	console.log("init() called for " + game.status);
 	switch(game.status) {
@@ -23,8 +34,8 @@ function init() {
 			//from here to the next comment, everything is temporary.
 			coins.addCoin(new Coin(200,100,1));
 			coins.addCoin(new Coin(24,150,1));
-			enemies.addEnemy(new JumpingKaidi(240,100));
-			enemies.addEnemy(new BigJumpingKaidi(240,150));
+			//enemies.addEnemy(new JumpingKaidi(240,100));
+			//enemies.addEnemy(new BigJumpingKaidi(240,150));
 			//addAtlas("onion",0,0,16,32);
 			addAtlas("onion_green",32,16,16,32);
 			UI.init();

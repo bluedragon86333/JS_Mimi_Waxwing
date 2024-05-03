@@ -21,12 +21,22 @@ class JumpingKaidi extends Enemy {
 		this.addCostume("stand_right",0,404,16,12);
 		this.setAnimation("jump_left");
 	}
+	
 	changeDirection = function() {
 		if (this.heading == -1 && this.x <=2) {
 			this.heading = 1;
 			this.setAnimation("jump_right");
 		} else if (this.heading == 1 && this.x > game.window.width - 2 - this.width) {
 			this.heading = -1;
+			this.setAnimation("jump_left");
+		}
+	}
+	
+	reachedEdge = function() {
+		this.heading *= -1;
+		if (this.heading == 1) {
+			this.setAnimation("jump_right");
+		} else {
 			this.setAnimation("jump_left");
 		}
 	}

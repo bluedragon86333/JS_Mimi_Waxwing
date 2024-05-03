@@ -233,4 +233,8 @@ class MovingSprite extends Sprite {
 			}
 		}
 	};
+	
+	reachedEdge = function() {
+		checkBounds();
+	}
 }
