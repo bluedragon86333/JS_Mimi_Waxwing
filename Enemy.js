@@ -43,6 +43,7 @@ class JumpingKaidi extends Enemy {
 	
 	process = function() {
 		this.tick();
+		this.yv = 0;
 		if ((this.animations[this.animationActive].name.includes("jump")) && (this.currentFrame == 2 || this.currentFrame == 3)) {
 			this.xv = this.speed * this.heading;
 			
@@ -51,7 +52,7 @@ class JumpingKaidi extends Enemy {
 		}
 		
 		this.changeDirection();
-		this.moveTo(this.x + this.xv,this.y + this.yv);
+		this.moveByVel();
 	}
 }
 

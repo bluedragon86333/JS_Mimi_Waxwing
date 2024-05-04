@@ -11,6 +11,7 @@ class Player extends MovingSprite {
 		this.setHP(3,3);
 		this.hitbox.tly = 4;
 		this.hitbox.height = 12;
+		this.canLeaveScreen = true;
 		// ANIMATIONS ///////////////////////////////////////
 		this.addCostume("left_walk_0",0,48,16,16);
 		this.addCostume("right_walk_0",0,64,16,16);
@@ -48,7 +49,8 @@ class Player extends MovingSprite {
 			this.xv = 0;
 		}
 		
-		this.moveTo(this.x + this.xv,this.y + this.yv);
+		//this.moveTo(this.x + this.xv,this.y + this.yv);
+		this.moveByVel();
 		
 		let nom = "side_walk";
 		if (this.animationActive >= 0) {

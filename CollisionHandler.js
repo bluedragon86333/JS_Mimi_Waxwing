@@ -18,7 +18,7 @@ class CollisionHandler {
 		}
 	}
 	
-	playerEnemy = function() {
+	enemy = function() {
 		for (let i = 0; i < enemies.enemies.length; i++) {
 			//sneaking in the wall code here
 			
@@ -36,6 +36,23 @@ class CollisionHandler {
 	
 	wall = function(sprite) {
 		for (let i = 0; i < level.tiles.length; i++) {
+			if (sprite == player) {
+				//sprite.moveByVel();
+				let touching = sprite.isTouching(level.tiles[i]) && level.tiles[i].solid;
+				//
+				if (touching) {
+					sprite.reverseByVel();
+					
+					sprite.x += sprite.xv;
+					if (sprite.isTouching(level.tiles[i]) && level.tiles[i].solid) {
+						sprite.x -= sprite.xv;
+					}
+					sprite.y += sprite.yv;
+					if (sprite.isTouching(level.tiles[i]) && level.tiles[i].solid) {
+						sprite.y -= sprite.yv;
+					}
+				}
+			}
 			if (sprite.isTouching(level.tiles[i]) && level.tiles[i].solid) {
 				//console.log("hit wall");
 				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
@@ -45,10 +62,27 @@ class CollisionHandler {
 		}
 	}
 	
+	playerEdge = function() {
+		let side = player.touchingEdge();
+		if (side != false) {
+			if (currentLevelId != 0 && side == "left") {
+				player.x = game.window.width - player.width;
+				currentLevelId--;
+				level.init();
+			}
+			if (currentLevelId < levelData[currentWorld].length - 1 && side == "right") {
+				player.x = 0;
+				currentLevelId++;
+				level.init();
+			}
+		}
+	}
+	
 	process = function() {
 		this.playerCoin();
-		this.playerEnemy();
+		this.enemy();
 		this.wall(player);
+		this.playerEdge();
 	}
 }
 

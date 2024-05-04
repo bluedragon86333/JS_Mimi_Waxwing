@@ -211,6 +211,12 @@ class MovingSprite extends Sprite {
 		this.direction -= degrees;
 	};
 	
+	moveByVel = function() {
+		this.moveTo(this.x + this.xv,this.y + this.yv);
+	}
+	reverseByVel = function() {
+		this.moveTo(this.x - this.xv,this.y - this.yv);
+	}
 
 	setVel = function(newXV,newYV) {
 		this.xv = newXV;
@@ -234,7 +240,23 @@ class MovingSprite extends Sprite {
 		}
 	};
 	
+	touchingEdge = function() {
+			if (this.x < 0) {
+				return "left";
+			}
+			if (this.x + this.width > canvas.width) {
+				return "right";
+			}
+			if (this.y < game.window.tly) {
+				return "up";
+			}
+			if (this.y + this.height > canvas.height) {
+				return "down";
+			}
+		return false;
+	}
+	
 	reachedEdge = function() {
-		checkBounds();
+		//this.checkBounds();
 	}
 }

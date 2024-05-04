@@ -33,7 +33,14 @@ Made Mimi's ears flap as she walks
 4/30/2024
 JumpingKaidi is now animated and can walk around the screen
 Added BigJumpingKaidi
-Added player health bar, made player flicker after touching enemy, added game over screen
+Added player health bar, gave player invincibility frames after touching enemy, added game over screen
 
 5/1/2024
 The levelData accurately reads and places wall tiles in the right spots, but without the right costumes (defaults to the onion at (0,0))
+
+
+5/3/2024
+Minor restructuring of TileAndLevel 
+Enemies and coins now spawn based solely on the levelData
+Player smoothly collides with walls
+Can switch between levels horizontally

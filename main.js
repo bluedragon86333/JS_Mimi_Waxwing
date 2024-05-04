@@ -28,12 +28,10 @@ function init() {
 			break;
 		case "game":
 			saveFile.erase();
-			coins.coins = [];
-			enemies.enemies = [];
 			
 			//from here to the next comment, everything is temporary.
-			coins.addCoin(new Coin(200,100,1));
-			coins.addCoin(new Coin(24,150,1));
+			//coins.addCoin(new Coin(200,100,1));
+			//coins.addCoin(new Coin(24,150,1));
 			//enemies.addEnemy(new JumpingKaidi(240,100));
 			//enemies.addEnemy(new BigJumpingKaidi(240,150));
 			//addAtlas("onion",0,0,16,32);
