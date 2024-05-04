@@ -5,7 +5,9 @@ class SplashScreen {
 
 class TitleScreen {
 	constructor() {
-		addAtlas("title_logo",432,0,80,48);
+		addAtlas("title_logo",360,0,152,48);
+		addAtlas("mimi_woods",288,0,72,88);
+		addAtlas("border",360,48,24,32);
 		this.spaceReady = false;
 	}
 	
@@ -22,11 +24,18 @@ class TitleScreen {
 	
 	draw = function() {
 		drawer.fillScreen("black");
-		drawImgFromAtlas("title_logo",88,32);
+		drawImgFromAtlas("title_logo",game.window.width / 2 - 76,16);
+		//drawImgFromAtlas("title_logo",16,16);
+		drawImgFromAtlas("mimi_woods",129,76);
 		//drawImgFromAtlas("font_whiteText_A",0,0);
+		for (let i = 0; i < game.window.height + game.window.tly; i += 32) {
+			drawImgFromAtlas("border",8,i);
+			drawImgFromAtlas("border",game.window.width - 32,i);
+		}
 		
 		text.setFont("whiteText");
-		text.print("SPACE TO PLAY",128,84,true);
+		text.print("SPACE",90,84,true);
+		text.print("TO PLAY",90,92,true);
 		text.print("MADE BY THE FLEA",128,174,true);
 		//text.print("0123456789",0,0);
 	}
