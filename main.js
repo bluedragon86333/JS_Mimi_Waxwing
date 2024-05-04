@@ -74,7 +74,7 @@ function draw() {
 		case "game":
 			level.drawTiles();
 			enemies.draw();
-			drawImgFromAtlas("onion_green",0,50);
+			//drawImgFromAtlas("onion_green",0,50);
 			drawImgFromAtlas("onion_green",mouseX,mouseY);
 			player.draw();
 			coins.draw();	

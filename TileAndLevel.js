@@ -20,7 +20,7 @@ var levelData = [
 			"1030303000060000",
 			"1000000000000011",
 			"1111111111111111",
-			"red_castle"
+			"lost_woods"
 		],
 		[//level 1
 			"1111111111111111",
@@ -33,7 +33,7 @@ var levelData = [
 			"0000011000050001",
 			"1050011000000011",
 			"1111111111111111",
-			"red_castle"
+			"lost_woods"
 		]
 	]
 
@@ -44,37 +44,55 @@ var levelData = [
 
 var currentWorld = 0;
 var currentLevelId = 0;
-var currentLevel = levelData[currentWorld][currentLevel];
-
+var currentLevel = levelData[currentWorld][currentLevelId];
 //May 2: rewrite this whole class (sorry future me)
 
 class TileManager { //helper methods for Tile class.
+	constructor() {
+		this.tilePosCoords = [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]];
+		this.tileCode =     [ "0011","1011","1001","0111","1111","1101","0110","1110","1100" ];
+		this.tileCostume = "";
+		this.lvlThemes = [];
+		
+		currentLevel = levelData[currentWorld][currentLevelId];
+		
+		this.addTheme("red_castle",432,64);
+		this.addTheme("lost_woods",432,144);
+		this.theme = this.getTheme();
+		this.numsLikeWalls = "1"; //which types of objects are treated as walls in getCostumeName();
+	}
 	
-	tilePosCoords = [[0,0],[1,0],[2,0],[0,1],[1,1],[2,1],[0,2],[1,2],[2,2],[3,0],[3,0],[3,0],[3,0],[3,0],[3,0]];
-	tileCode = [ "0011","1011","1001","0111","1111","1101","0110","1110","1100" ];
-	tileCostume = "";
-	lvlThemes = [];
-	
-	
-	getCostumeName = function(row,col) {
+	getCostume = function(row,col) {
+		
 		if (currentLevel[row][col] == 1) {
-			return this.theme + "_19";
+			//return new Costume(this.theme[0] + "_17",this.theme[1],this.theme[2],16,16);
 			let code = ""; //4 digit binary code to determine surrounding blocks
-			code += (col == 0 || this.numsLikeWalls.includes(currentLevel[row][col - 1])); //left
-			code += (row == 0 || this.numsLikeWalls.includes(currentLevel[row - 1][col])); //up
-			code += (col == currentLevel[row].length - 1 || this.numsLikeWalls.includes(currentLevel[row][col + 1])); //right
-			code += (col == currentLevel.length - 1 || this.numsLikeWalls.includes(currentLevel[row + 1][col])); //down
+			code += 0 + (col == 0 || this.numsLikeWalls.includes(currentLevel[row][col - 1])); //left
+			code += 0 + (row == 0 || this.numsLikeWalls.includes(currentLevel[row - 1][col])); //up
+			code += 0 + (col == currentLevel[row].length - 1 || this.numsLikeWalls.includes(currentLevel[row][col + 1])); //right
+			code += 0 + (row == currentLevel.length - 2 || this.numsLikeWalls.includes(currentLevel[row + 1][col])); //down
 			
-			
-			this.x = this.theme[1] + this.tileCode.indexOf(code);
-			if (this.tileCode.includes(code)) {
-				
+			if (row == 9 && col == 13) {
+				console.log(code);
 			}
-			
-			return + this.tileCode.indexOf(code);
+			this.x = this.theme[1] + 16;
+			this.y = this.theme[2] + 16;
+			if (this.tileCode.includes(code)) {
+				this.x = this.theme[1] + this.tilePosCoords[this.tileCode.indexOf(code)][0] * 16;
+				this.y = this.theme[2] + this.tilePosCoords[this.tileCode.indexOf(code)][1] * 16;
+			}
+			//let currentTilePos = this.tilePosCoords[this.tileCode.indexOf(code)];
+			return new Costume(this.theme[0] + "_" + this.tileCode.indexOf(code),this.x,this.y,16,16);
 		}
 		
-		return this.theme + "_24";
+		return new Costume(this.theme[0] + "_22",this.theme[1] + 32,this.theme[2] + 64,16,16);
+	}
+	
+	addTheme = function(name,tlx,tly) {
+		this.lvlThemes.push([name,tlx,tly]);
+		for (let i = 0; i < 25; i++) {
+			this.addTileCostume("name_" + (i % 5) + (Math.floor(i / 5)),tlx + (i%5 * 16),tly + (Math.floor(i/5)));
+		}
 	}
 	getTheme = function() {
 		for (let i = 0; i < this.lvlThemes.length; i++) {
@@ -109,26 +127,11 @@ class Level {
 	constructor(world,level) { //worlds = spaces currently in use. A single dungeon, overworld map, cave system, etc. Levels = screens.
 		currentWorld = world;
 		currentLevelId = level;
-		currentLevel = levelData[world][level];
-		this.addTheme("red_castle",432,64);
-		
-		
-		this.theme = tileManager.getTheme(); //temporary- fix later
-		
-		this.numsLikeWalls = "1"; //which types of objects are treated as walls in getCostumeName();
-
+		//currentLevel = levelData[world][level];
 		
 		
 	}
 	
-
-
-	addTheme = function(name,tlx,tly) {
-		tileManager.lvlThemes.push([name,tlx,tly]);
-		for (let i = 0; i < 25; i++) {
-			tileManager.addTileCostume("name_" + (i % 5) + (Math.floor(i / 5)),tlx + (i%5 * 16),tly + (Math.floor(i/5)));
-		}
-	}
 
 
 	
@@ -149,10 +152,14 @@ class Level {
 		for (let row = 0; row < 10; row++) {
 			for (let col = 0; col < 16; col++) {
 				let cell = currentLevel[row][col]
-				if (cell == 1) {
-					this.tiles.push(new Tile(col * 16,row * 16 + game.window.tly,"",true));
-					this.tiles[this.tiles.length - 1].addCostume(tileManager.getCostumeName(row,col),0,0,16,16);
+				
+				this.tiles.push(new Tile(col * 16,row * 16 + game.window.tly,"",true));
+				if (cell != 1) {
+					this.tiles[this.tiles.length - 1].solid = false;
 				}
+				this.tiles[this.tiles.length - 1].addCostume(tileManager.getCostume(row,col));
+				this.tiles[this.tiles.length - 1].setCurrentCostume();
+				
 				if (cell == 3) {
 					coins.addCoin(new Coin(col * 16,row * 16 + game.window.tly,1));
 				}				

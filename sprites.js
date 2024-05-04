@@ -59,7 +59,12 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 
 	
 	addCostume = function(name,sx,sy,w,h) {
-		if (arguments.length == 3)
+		
+		if (arguments.length == 1) {
+			this.costumes.push(name);
+			return;
+		}
+		else if (arguments.length == 3)
 		{
 			w = this.width;
 			h = this.height;
@@ -80,6 +85,9 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	setCurrentCostume = function(name) {
 		if (this.animationActive == -1)
 		{
+			if (name == null) {
+				this.currentCostume = this.costumes[0];
+			}
 			//this.currentCostume.name = name;
 			for (let i = 0; i < this.costumes.length; i++) {
 				if (name == this.costumes[i].name) {
