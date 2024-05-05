@@ -3,7 +3,7 @@ class Player extends MovingSprite {
 	{
 		super();
 		this.setVel(2,2);
-		this.moveTo(100,50);
+		this.moveTo(110,77);
 		this.width = 16;
 		this.height = 16;
 		this.speed = 2;
