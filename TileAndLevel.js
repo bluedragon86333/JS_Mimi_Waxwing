@@ -10,19 +10,32 @@
 var levelData = [
 	[ //world 0
 		[//level 0
-			"4040404040404111",
-			"0040000224040111",
+			"1111111111111111",
+			"1111030111404001",
+			"1000000111000001",
+			"1040040000000001",
+			"1000000004000001",
+			"1000000040400001",
+			"1030400004000000",
+			"103000000004000",
+			"1030114000000001",
+			"1111111111111111",
+			"lost_woods"
+		],
+		[//level 1
+			"1111111111111111",
+			"1100333224040111",
 			"1104000220004111",
-			"1130400022000001",
-			"1105040002200000",
-			"1100004000000000",
-			"1000000000600404",
-			"1030303000004040",
+			"1130400025000001",
+			"1100040000000000",
+			"1105004000000000",
+			"0000000000001111",
+			"0030303000001111",
 			"1000000404040404",
 			"4040404040404040",
 			"lost_woods"
 		],
-		[//level 1
+		[//level 2
 			"1111111111111111",
 			"1100000000000111",
 			"1100333300000111",
@@ -59,7 +72,7 @@ class TileManager { //helper methods for Tile class.
 		this.addTheme("red_castle",432,64);
 		this.addTheme("lost_woods",432,144);
 		this.theme = this.getTheme();
-		this.numsLikeWalls = "14"; //which types of objects are treated as walls in getCostumeName();
+		this.numsLikeWalls = "1"; //which types of objects are treated as walls in getCostumeName();
 	}
 	
 	getCostume = function(row,col) {
@@ -130,7 +143,6 @@ class TileManager { //helper methods for Tile class.
 
 var tileManager = new TileManager();
 
-
 	class Tile extends Sprite{
 		constructor(x,y,costumeName,solid) {
 			super();
@@ -164,7 +176,7 @@ class Level {
 		console.log("level.init()");
 		
 		//resetting other objects
-		coins.coins = [];
+		coins.objs = [];
 		enemies.enemies = [];
 		
 		//resetting internal stuff
@@ -190,20 +202,26 @@ class Level {
 					
 				}
 				if (cell == 3) {
-					coins.addCoin(new Coin(col * 16,row * 16 + game.window.tly,1));
+					coins.add(new Coin(col * 16,row * 16 + game.window.tly,1));
 				}				
 				if (cell == 4) {
 					this.tiles[this.tiles.length - 1].solid = true;
 					this.tiles[this.tiles.length - 1].setSize(32,32);
-				this.tiles[this.tiles.length - 1].addCostume("tree",432,224,32,32);
-				this.tiles[this.tiles.length - 1].addCostume("tree_clear_bg",464,224,32,32);
-				this.tiles[this.tiles.length - 1].setCurrentCostume("tree");
+					this.tiles[this.tiles.length - 1].setHitbox(0,3,32,29);
+					
+					this.tiles[this.tiles.length - 1].addCostume("tree",432,224,32,32);
+					this.tiles[this.tiles.length - 1].addCostume("tree_clear_bg",464,224,32,32);
+					this.tiles[this.tiles.length - 1].setCurrentCostume("tree");
 				}
 				if (cell == 5) {
 					enemies.addEnemy(new JumpingKaidi(col * 16,row * 16 + game.window.tly));
 				}
 				if (cell == 6) {
 					enemies.addEnemy(new BigJumpingKaidi(col * 16,row * 16 + game.window.tly));
+				}
+				if (cell == 7) {
+					this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);
+					this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
 				}
 			}
 		}

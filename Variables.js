@@ -1,3 +1,3 @@
 
 var player = new Player();
-var coins = new CoinCollection();
+var coins = new ObjectHandler();

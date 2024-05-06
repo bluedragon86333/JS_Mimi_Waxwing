@@ -7,11 +7,11 @@ class CollisionHandler {
 	
 	playerCoin = function() {
 		//console.log("");
-		for (let i = 0; i < coins.coins.length; i++) {
+		for (let i = 0; i < coins.objs.length; i++) {
 			//console.log(player.isTouching(coins.coins[i]));
-			if (player.isTouching(coins.coins[i])) {
+			if (player.isTouching(coins.objs[i])) {
 				//console.log("coin found");
-				coins.coins.splice(i,1);
+				coins.objs.splice(i,1);
 				saveFile.carrots++;
 				return;
 			}
@@ -35,8 +35,15 @@ class CollisionHandler {
 	}
 	
 	wall = function(sprite) {
+		
 		for (let i = 0; i < level.tiles.length; i++) {
 			if (sprite == player) {
+				let touchingGrass = sprite.isTouching(level.tiles[i]) && level.tiles[i].currentCostume.name.includes("grass_tile");
+				if (touchingGrass) {
+					//player.costumePrefix = "grass_";
+				} else {
+					player.costumePrefix = "";
+				}
 				//sprite.moveByVel();
 				let touching = sprite.isTouching(level.tiles[i]) && level.tiles[i].solid;
 				//

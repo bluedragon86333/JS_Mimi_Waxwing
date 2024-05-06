@@ -2,6 +2,7 @@ class Enemy extends MovingSprite {
 	constructor() {
 		super();
 		this.type = "enemy";
+		this.setHitbox(0,0,this.width,this.height);
 	}
 	
 

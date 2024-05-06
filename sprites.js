@@ -19,7 +19,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	canLeaveScreen = false;
 	animations = [];
 	dead = false;
-	hitbox = {"tly":this.y,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
+	hitbox = {"x":0,"y":0,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
 	visible = true;
 	solid = false; //if true, MovingSprites can't overlap with it
 	
@@ -150,16 +150,24 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		}
 	}
 	
-	tick = function() { //use super() to call this method in any subclasses of Sprite - contains all frame-to-frame processes necessary
+	setHitbox = function(x,y,width,height) {
+		this.hitbox.x = x;
+		this.hitbox.y = y;
+		this.hitbox.width = width;
+		this.hitbox.height = height;
+	}
+	
+	tick = function() { //use this.tick() to call this method in any subclasses of Sprite - contains all frame-to-frame processes necessary
+		//this.updateHitbox();
 		this.animationProcess();
 	}
 	
 	isTouching = function(other) {
 		return (
 			this.x < other.x + other.width &&
-			this.x + this.width > other.x &&
-			this.y < other.y + other.height &&
-			this.y + this.height > other.y
+			this.x + this.width > other.x + other.hitbox.x &&
+			this.y + this.hitbox.y < other.y + other.height &&
+			this.y + this.hitbox.y + this.hitbox.height > other.y + other.hitbox.y
 		);
 	}
 }

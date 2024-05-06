@@ -9,8 +9,7 @@ class Player extends MovingSprite {
 		this.speed = 2;
 		this.size = 1;
 		this.setHP(3,3);
-		this.hitbox.tly = 4;
-		this.hitbox.height = 12;
+		this.setHitbox(1,8,14,12);
 		this.canLeaveScreen = true;
 		// ANIMATIONS ///////////////////////////////////////
 		this.addCostume("left_walk_0",0,48,16,16);
@@ -21,9 +20,21 @@ class Player extends MovingSprite {
 		this.addAnimation("right_walk",16,64,16,16,4,2);
 		this.addAnimation("up_walk",16,80,16,16,4,2);
 		this.addAnimation("down_walk",16,96,16,16,4,2);
+		/*
+		this.addCostume("grass_left_walk_0",64,48,16,16);
+		this.addCostume("grass_right_walk_0",64,64,16,16);
+		this.addCostume("grass_up_walk_0",64,80,16,16);
+		this.addCostume("grass_down_walk_0",64,96,16,16);
+		this.addAnimation("grass_left_walk",80,48,16,16,4,2);
+		this.addAnimation("grass_right_walk",80,64,16,16,4,2);
+		this.addAnimation("grass_up_walk",80,80,16,16,4,2);
+		this.addAnimation("grass_down_walk",80,96,16,16,4,2);
+		*/
+		
 		this.setCurrentCostume("right_walk_0");
 		this.visible = true;
 		this.invisLength = 60;
+		this.costumePrefix = "";
 		
 	}
 	
@@ -59,18 +70,18 @@ class Player extends MovingSprite {
 		if (oldv[0] != this.xv || oldv[1] != this.yv) { //if direction has changed
 		
 			if (this.xv > 0) {
-				this.setAnimation("right_walk");
+				this.setAnimation(this.costumePrefix + "right_walk");
 			} else if (this.xv < 0) {
-				this.setAnimation("left_walk");
+				this.setAnimation(this.costumePrefix + "left_walk");
 			}
 			else if (this.yv > 0) {
-				this.setAnimation("down_walk");
+				this.setAnimation(this.costumePrefix + "down_walk");
 			}
 			else if (this.yv < 0) {
-				this.setAnimation("up_walk");
+				this.setAnimation(this.costumePrefix + "up_walk");
 			} else {
 				this.animationActive = -1;
-				this.setCurrentCostume(nom + "_0");
+				this.setCurrentCostume(this.costumePrefix + nom + "_0");
 			}
 			
 
@@ -94,6 +105,7 @@ class Player extends MovingSprite {
 	
 	process = function() {
 		//console.log("player.process() called");
+		this.costumePrefix = "";
 		this.tick();
 		this.invisFrames();
 		this.healthProcess();

@@ -92,8 +92,8 @@ function draw() {
 
 var mainloop = setInterval(function() {
 	
-	draw();
 	process();
+	draw();
 	
 	if (1 == 0) {
 		clearInterval(mainloop);

@@ -16,35 +16,39 @@ class Coin extends Sprite {
 	
 }
 
-class CoinCollection {
+class ObjectHandler {
 	constructor()
 	{
-		this.coins = [];
+		this.objs = [];
 	}
 	
-	addCoin = function(coinObj)
+	add = function(obj)
 	{
-		this.coins.push(coinObj);
+		this.objs.push(obj);
 	}
 	
 	clear = function()
 	{
-		this.coins = [];
+		this.objs = [];
 	}
 	
 	
 	process = function()
 	{
-		for (let i = 0; i < this.coins.length; i++) {
-			this.coins[i].tick();
+		for (let i = 0; i < this.objs.length; i++) {
+			this.objs[i].tick();
 		}
 	}
 	
 	
 	draw = function()
 	{
-		for (let i = 0; i < this.coins.length; i++) {
-			this.coins[i].draw();
+		for (let i = 0; i < this.objs.length; i++) {
+			this.objs[i].draw();
 		}
 	}
+}
+
+class Bush {
+	
 }
