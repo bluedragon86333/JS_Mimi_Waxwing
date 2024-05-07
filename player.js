@@ -3,7 +3,7 @@ class Player extends MovingSprite {
 	{
 		super();
 		this.setVel(2,2);
-		this.moveTo(110,77);
+		this.moveTo(100,140);
 		this.width = 16;
 		this.height = 16;
 		this.speed = 2;
@@ -11,6 +11,7 @@ class Player extends MovingSprite {
 		this.setHP(3,3);
 		this.setHitbox(1,8,14,12);
 		this.canLeaveScreen = true;
+		this.attack = new PlayerAttack(this.x,this.y,this.xv,this.yv);
 		// ANIMATIONS ///////////////////////////////////////
 		this.addCostume("left_walk_0",0,48,16,16);
 		this.addCostume("right_walk_0",0,64,16,16);
@@ -39,7 +40,10 @@ class Player extends MovingSprite {
 	}
 	
 	keyInput = function () {
-		this.speed = 2 + (key.space * 2);
+		if (key.z && !this.attack.active) {
+			this.attack.activate();
+		}
+		//this.speed = 2 + (key.space * 2);
 		let oldv = [this.xv,this.yv];
 		if (key.up) {
 			this.yv = this.speed * -1;
@@ -111,10 +115,54 @@ class Player extends MovingSprite {
 		this.healthProcess();
 		this.keyInput();
 		this.checkBounds();
-		
+		if (this.attack.active) {
+			this.attack.process(this.x,this.y,this.xv,this.yv,this.currentCostume.name);
+		}
 	}
 	
 	die = function() {
 		game.status = "gameOver";
 	}
 }
+
+class PlayerAttack extends MovingSprite {
+	constructor(x,y,xv,yv) {
+		super();
+		this.moveTo(x,y);
+		this.setVel(xv,yv);
+		this.setSize(8,32);
+		
+		
+		this.active = false;
+		this.visible = false;
+		this.addCostume("empty",24,112,8,32);
+		this.addAnimation("attack",32,112,8,32,5,3);
+		this.setAnimation("attack");
+	}
+	
+	activate = function() {
+
+		this.active = true;
+		this.visible = true;
+		this.setAnimation("attack");
+	}
+	
+	process = function(x,y,xv,yv,playerName) {
+		this.moveTo(x,y);
+		this.setVel(xv,yv);
+		this.tick();
+		
+		if (playerName.includes("right")) {
+			this.x += 16;
+		} else {
+			if (playerName.includes("left")) {
+				this.x -= 16;
+			}
+		}
+		
+		if (this.currentFrame == 4 && this.frameTics >= 2) {
+			this.active = false;
+			this.visible = false;
+		}
+	}
+};

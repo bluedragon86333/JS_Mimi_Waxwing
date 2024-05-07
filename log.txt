@@ -44,3 +44,10 @@ Minor restructuring of TileAndLevel
 Enemies and coins now spawn based solely on the levelData
 Player smoothly collides with walls
 Can switch between levels horizontally
+
+5/4/2024
+Added trees
+
+5/5/2024
+Failed attempt at adding grass
+Collisions based on hitboxes now

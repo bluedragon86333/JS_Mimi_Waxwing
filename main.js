@@ -35,7 +35,7 @@ function init() {
 			//enemies.addEnemy(new JumpingKaidi(240,100));
 			//enemies.addEnemy(new BigJumpingKaidi(240,150));
 			//addAtlas("onion",0,0,16,32);
-			addAtlas("onion_green",32,16,16,32);
+			//addAtlas("onion_green",32,16,16,32);
 			UI.init();
 			player = new Player();
 			level.init();
@@ -75,8 +75,9 @@ function draw() {
 			level.drawTiles();
 			enemies.draw();
 			//drawImgFromAtlas("onion_green",0,50);
-			drawImgFromAtlas("onion_green",mouseX,mouseY);
+			//drawImgFromAtlas("onion_green",mouseX,mouseY);
 			player.draw();
+			player.attack.draw();
 			coins.draw();	
 			UI.draw();
 			break;

@@ -3,7 +3,8 @@ var key = {
 	"down":false,
 	"right":false,
 	"left":false,
-	"space":false
+	"space":false,
+	"z":false
 };
 
 document.body.onkeydown = function(e) {
@@ -26,6 +27,9 @@ document.body.onkeydown = function(e) {
 	if (e.keyCode == 32) {
 		key.space = true;
 	}
+	if (e.keyCode == 90) {
+		key.z = true;
+	}
 }
 
 document.body.onkeyup = function(e) {
@@ -43,5 +47,8 @@ document.body.onkeyup = function(e) {
 	}
 	if (e.keyCode == 32) {
 		key.space = false;
+	}	
+	if (e.keyCode == 90) {
+		key.z = false;
 	}
 }
