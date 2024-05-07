@@ -27,6 +27,10 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		
 	}
 	
+	toString = function() {
+		return "position" + this.x + "," + this.y
+	};
+	
 	turnRight = function(degrees) {
 		this.direction += degrees;
 	};
@@ -274,5 +278,47 @@ class MovingSprite extends Sprite {
 	
 	reachedEdge = function() {
 		//this.checkBounds();
+	}
+}
+
+
+class ObjectHandler {
+	constructor()
+	{
+		
+		this.objs = [];
+		this.collectedItems = [];
+	}
+	
+	init = function() {
+		this.clear();
+		this.collectedItems = [];
+	}
+	
+	add = function(obj)
+	{
+		this.objs.push(obj);
+	}
+	
+	clear = function()
+	{
+		this.objs = [];
+		//
+	}
+	
+	
+	process = function()
+	{
+		for (let i = 0; i < this.objs.length; i++) {
+			this.objs[i].process();
+		}
+	}
+	
+	
+	draw = function()
+	{
+		for (let i = 0; i < this.objs.length; i++) {
+			this.objs[i].draw();
+		}
 	}
 }

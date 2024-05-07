@@ -11,6 +11,7 @@ class CollisionHandler {
 			//console.log(player.isTouching(coins.coins[i]));
 			if (player.isTouching(coins.objs[i])) {
 				//console.log("coin found");
+				coins.collectedItems.push(currentWorld + "_" + currentLevelId + "_" + coins.objs[i].toString());
 				coins.objs.splice(i,1);
 				saveFile.carrots++;
 				return;
@@ -19,12 +20,12 @@ class CollisionHandler {
 	}
 	
 	enemy = function() {
-		for (let i = 0; i < enemies.enemies.length; i++) {
+		for (let i = 0; i < enemies.objs.length; i++) {
 			//sneaking in the wall code here
 			
-			this.wall(enemies.enemies[i]);
+			this.wall(enemies.objs[i]);
 			
-			if (player.isTouching(enemies.enemies[i])) {
+			if (player.isTouching(enemies.objs[i])) {
 				//console.log("took damage from enemy");
 				player.takeDamage(0.5);
 				//coins.coins.splice(i,1);

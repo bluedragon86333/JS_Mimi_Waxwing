@@ -51,3 +51,9 @@ Added trees
 5/5/2024
 Failed attempt at adding grass
 Collisions based on hitboxes now
+
+5/6/2024
+Added player attack
+
+5/7/2024
+Collected coins are permanently gone

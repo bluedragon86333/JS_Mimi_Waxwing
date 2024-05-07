@@ -81,38 +81,3 @@ class BigJumpingKaidi extends JumpingKaidi {
 
 
 
-
-class Enemies {
-	constructor()
-	{
-		this.enemies = [];
-	}
-	
-	addEnemy = function(enemy)
-	{
-		this.enemies.push(enemy);
-	}
-	
-	clear = function()
-	{
-		this.enemies = [];
-	}
-	
-	
-	process = function()
-	{
-		for (let i = 0; i < this.enemies.length; i++) {
-			this.enemies[i].process();
-		}
-	}
-	
-	
-	draw = function()
-	{
-		for (let i = 0; i < this.enemies.length; i++) {
-			this.enemies[i].draw();
-		}
-	}
-}
-
-var enemies = new Enemies();

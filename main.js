@@ -27,8 +27,10 @@ function init() {
 			titleScreen = new TitleScreen();
 			break;
 		case "game":
+			level = new Level(0,0);
 			saveFile.erase();
-			
+			coins.init();
+			enemies.init();
 			//from here to the next comment, everything is temporary.
 			//coins.addCoin(new Coin(200,100,1));
 			//coins.addCoin(new Coin(24,150,1));

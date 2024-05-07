@@ -163,6 +163,7 @@ class Level {
 		//currentLevel = levelData[world][level];
 		
 		this.spawnPoints = [];
+		
 	}
 	
 	addSpawnPoint = function(world,level,row,col) {
@@ -176,8 +177,8 @@ class Level {
 		console.log("level.init()");
 		
 		//resetting other objects
-		coins.objs = [];
-		enemies.enemies = [];
+		coins.clear();
+		enemies.clear();
 		
 		//resetting internal stuff
 		currentLevel = levelData[currentWorld][currentLevelId];
@@ -202,7 +203,10 @@ class Level {
 					
 				}
 				if (cell == 3) {
-					coins.add(new Coin(col * 16,row * 16 + game.window.tly,1));
+					let temp = new Coin(col * 16,row * 16 + game.window.tly,1)
+					if (!coins.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
+						coins.add(temp);
+					}
 				}				
 				if (cell == 4) {
 					this.tiles[this.tiles.length - 1].solid = true;
@@ -213,15 +217,17 @@ class Level {
 					this.tiles[this.tiles.length - 1].addCostume("tree_clear_bg",464,224,32,32);
 					this.tiles[this.tiles.length - 1].setCurrentCostume("tree");
 				}
+				
 				if (cell == 5) {
-					enemies.addEnemy(new JumpingKaidi(col * 16,row * 16 + game.window.tly));
+					enemies.add(new JumpingKaidi(col * 16,row * 16 + game.window.tly));
 				}
 				if (cell == 6) {
-					enemies.addEnemy(new BigJumpingKaidi(col * 16,row * 16 + game.window.tly));
+					enemies.add(new BigJumpingKaidi(col * 16,row * 16 + game.window.tly));
 				}
 				if (cell == 7) {
-					this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);
-					this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
+					bushes.add(new Bush(col * 16,row * 16 + game.window.tly));
+					//this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);
+					//this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
 				}
 			}
 		}

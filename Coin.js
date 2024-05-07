@@ -13,42 +13,22 @@ class Coin extends Sprite {
 	
 	
 	
-	
+	process = function() {
+		this.tick();
+	}
 }
 
-class ObjectHandler {
-	constructor()
-	{
-		this.objs = [];
-	}
-	
-	add = function(obj)
-	{
-		this.objs.push(obj);
-	}
-	
-	clear = function()
-	{
-		this.objs = [];
-	}
-	
-	
-	process = function()
-	{
-		for (let i = 0; i < this.objs.length; i++) {
-			this.objs[i].tick();
-		}
-	}
-	
-	
-	draw = function()
-	{
-		for (let i = 0; i < this.objs.length; i++) {
-			this.objs[i].draw();
-		}
-	}
-}
+
 
 class Bush {
+	constructor(x,y) {
+		this.moveTo(x,y);
+		this.addAnimation("bush_idle",432,256,16,17,4,4);
+		this.setAnimation("bush_idle");
+	}
 	
+	process = function() {
+		this.tick();
+	}
 }
+
