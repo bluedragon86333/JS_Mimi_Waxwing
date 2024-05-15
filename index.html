@@ -6,22 +6,6 @@
 	<body onload="init()">
 		
 	<script>
-		function resize() {
-			console.log("resized");
-			let x = document.getElementById("game-canvas");
-			if (x.width == 512) {
-				x.width = 1024;
-			} else {
-				x = 512;
-			}
-		}
-
-		function screenCapture() {
-			var canvas = document.getElementById("game-canvas");
-			var dataURL = canvas.toDataURL("image/png");
-			var newTab = window.open('about:blank','image from canvas');
-			newTab.document.write("<img src='" + dataURL + "' alt='from canvas'/>");
-		}
 	</script>
 	
 		<p id="currentPeriod"></p>

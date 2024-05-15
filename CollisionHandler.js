@@ -30,7 +30,11 @@ class CollisionHandler {
 				player.takeDamage(0.5);
 				//coins.coins.splice(i,1);
 				//saveFile.carrots++;
-				return;
+				//return;
+			}
+			
+			if (player.attack.isTouching(enemies.objs[i])) {
+				enemies.objs[i].takeDamage(1);
 			}
 		}
 	}
@@ -68,6 +72,35 @@ class CollisionHandler {
 				return;
 			}
 		}
+		
+		
+		for (let i = 0; i < bushes.objs.length; i++) {
+			if (sprite == player) {
+				let obj = bushes.objs[i];
+				let touching = sprite.isTouching(obj) && obj.solid;
+				//
+				if (touching) {
+					sprite.reverseByVel();
+					
+					sprite.x += sprite.xv;
+					if (sprite.isTouching(obj) && obj.solid) {
+						sprite.x -= sprite.xv;
+					}
+					sprite.y += sprite.yv;
+					if (sprite.isTouching(obj) && obj.solid) {
+						sprite.y -= sprite.yv;
+					}
+				}
+			}
+			if (sprite.isTouching(bushes.objs[i]) && bushes.objs[i].solid) {
+				//console.log("hit wall");
+				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
+				sprite.reachedEdge();
+				return;
+			}
+		}
+		
+		
 	}
 	
 	playerEdge = function() {

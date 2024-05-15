@@ -24,7 +24,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	solid = false; //if true, MovingSprites can't overlap with it
 	
 	constructor() {
-		
+		this.setHitbox(0,0,this.width,this.height);
 	}
 	
 	toString = function() {
@@ -53,7 +53,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		if (!this.visible) {
 			return;
 		}
-		this.flip = (this.xv < 0 && this.flipsHorizontally);
+		//this.flip = (this.xv < 0 && this.flipsHorizontally);
 		if (this.animationActive == -1) {
 			drawImgFromAtlas(this.currentCostume.name,this.currentCostume.sx,this.currentCostume.sy,this.width,this.height,this.x,this.y,this.width * this.size,this.height * this.size,this.flip);
 		} else {
@@ -167,10 +167,13 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	}
 	
 	isTouching = function(other) {
+		if (!this.visible || !other.visible) {
+			return false;
+		}
 		return (
-			this.x < other.x + other.width &&
+			this.x < other.x + other.hitbox.x + other.hitbox.width &&
 			this.x + this.width > other.x + other.hitbox.x &&
-			this.y + this.hitbox.y < other.y + other.height &&
+			this.y + this.hitbox.y < other.y + other.hitbox.y + other.hitbox.height &&
 			this.y + this.hitbox.y + this.hitbox.height > other.y + other.hitbox.y
 		);
 	}

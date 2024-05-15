@@ -58,6 +58,7 @@ function process() {
 		case "game":
 			player.process();
 			coins.process();
+			bushes.process();
 			collisions.process();
 			enemies.process();
 			break;
@@ -75,12 +76,13 @@ function draw() {
 			break;
 		case "game":
 			level.drawTiles();
+			bushes.draw();
+	
+			coins.draw();
 			enemies.draw();
-			//drawImgFromAtlas("onion_green",0,50);
-			//drawImgFromAtlas("onion_green",mouseX,mouseY);
+			
 			player.draw();
 			player.attack.draw();
-			coins.draw();	
 			UI.draw();
 			break;
 		case "gameOver":

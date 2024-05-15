@@ -8,6 +8,7 @@ class Player extends MovingSprite {
 		this.height = 16;
 		this.speed = 2;
 		this.size = 1;
+		//this.flip = true;
 		this.setHP(3,3);
 		this.setHitbox(1,8,14,12);
 		this.canLeaveScreen = true;
@@ -41,7 +42,7 @@ class Player extends MovingSprite {
 	
 	keyInput = function () {
 		if (key.z && !this.attack.active) {
-			this.attack.activate();
+			this.attack.activate(this.currentCostume.name);
 		}
 		//this.speed = 2 + (key.space * 2);
 		let oldv = [this.xv,this.yv];
@@ -130,37 +131,72 @@ class PlayerAttack extends MovingSprite {
 		super();
 		this.moveTo(x,y);
 		this.setVel(xv,yv);
-		this.setSize(8,32);
+		this.setSize(32,16);
 		
 		
 		this.active = false;
 		this.visible = false;
 		this.addCostume("empty",24,112,8,32);
-		this.addAnimation("attack",32,112,8,32,5,3);
-		this.setAnimation("attack");
+		this.addAnimation("attack_side",0,144,32,16,8,1);
+		this.addAnimation("attack_up",128,160,16,32,8,1);
+		this.addAnimation("attack_down",0,160,16,32,8,1);
+		this.setAnimation("attack_side");
 	}
 	
-	activate = function() {
+	activate = function(playerName) {
 
 		this.active = true;
 		this.visible = true;
-		this.setAnimation("attack");
+		if (playerName.includes("right") || playerName.includes("left")) {
+			this.setAnimation("attack_side");
+			this.setSize(32,16);
+		} else if (playerName.includes("up"))
+		{
+			this.setAnimation("attack_up");
+			this.setSize(16,32);
+		}
+		else if (playerName.includes("down")) {
+			this.setAnimation("attack_down");
+			this.setSize(16,32);
+		}
 	}
 	
 	process = function(x,y,xv,yv,playerName) {
 		this.moveTo(x,y);
 		this.setVel(xv,yv);
 		this.tick();
-		
+		this.flip = false;
+		this.setSize(32,16);
 		if (playerName.includes("right")) {
 			this.x += 16;
-		} else {
-			if (playerName.includes("left")) {
-				this.x -= 16;
+			if (!this.currentCostume.name.includes("side")) {
+				this.setAnimation("attack_side");
+			}
+		} else if (playerName.includes("left")) {
+			this.x -= 0;
+			this.flip = true;
+			if (!this.currentCostume.name.includes("side")) {
+				this.setAnimation("attack_side");
+			}
+		}
+		else if (playerName.includes("up"))
+		{
+			this.y -= 32;
+			this.setSize(16,32);
+			if (!this.currentCostume.name.includes("up")) {
+				this.setAnimation("attack_up");
+			}
+		}
+		else if (playerName.includes("down"))
+		{
+			this.y += 8;
+			this.setSize(16,32);
+			if (!this.currentCostume.name.includes("down")) {
+				this.setAnimation("attack_down");
 			}
 		}
 		
-		if (this.currentFrame == 4 && this.frameTics >= 2) {
+		if (this.currentFrame >= 7 && this.frameTics >= 1) {
 			this.active = false;
 			this.visible = false;
 		}

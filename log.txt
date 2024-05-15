@@ -57,3 +57,5 @@ Added player attack
 
 5/7/2024
 Collected coins are permanently gone
+Added bushes
+Replaced Enemies class with ObjectHandler instance

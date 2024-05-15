@@ -11,8 +11,8 @@ var levelData = [
 	[ //world 0
 		[//level 0
 			"1111111111111111",
-			"1111030111404001",
-			"1000000311000001",
+			"1111030111404071",
+			"1000000311000071",
 			"1040040000000001",
 			"1000000004000001",
 			"1000000040400001",
@@ -26,7 +26,7 @@ var levelData = [
 			"1111111111111111",
 			"1100333224040111",
 			"1104000220004111",
-			"1130400025000001",
+			"1130400025000071",
 			"1100040000000000",
 			"1105004000000000",
 			"0000000000001111",
@@ -143,15 +143,18 @@ class TileManager { //helper methods for Tile class.
 
 var tileManager = new TileManager();
 
-	class Tile extends Sprite{
-		constructor(x,y,costumeName,solid) {
-			super();
-			this.moveTo(x,y);
-			this.setSize(16,16);
-			this.costumeName = costumeName;
-			this.solid = solid;
-		}
+
+
+class Tile extends Sprite{
+	constructor(x,y,costumeName,solid) {
+		super();
+		this.moveTo(x,y);
+		this.setSize(16,16);
+		this.setHitbox(0,4,16,16);
+		this.costumeName = costumeName;
+		this.solid = solid;
 	}
+}
 
 class Level {
 
@@ -179,6 +182,7 @@ class Level {
 		//resetting other objects
 		coins.clear();
 		enemies.clear();
+		bushes.clear();
 		
 		//resetting internal stuff
 		currentLevel = levelData[currentWorld][currentLevelId];
@@ -211,7 +215,7 @@ class Level {
 				if (cell == 4) {
 					this.tiles[this.tiles.length - 1].solid = true;
 					this.tiles[this.tiles.length - 1].setSize(32,32);
-					this.tiles[this.tiles.length - 1].setHitbox(0,3,32,29);
+					this.tiles[this.tiles.length - 1].setHitbox(2,5,28,25);
 					
 					this.tiles[this.tiles.length - 1].addCostume("tree",432,224,32,32);
 					this.tiles[this.tiles.length - 1].addCostume("tree_clear_bg",464,224,32,32);

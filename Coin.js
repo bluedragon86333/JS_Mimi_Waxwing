@@ -20,10 +20,12 @@ class Coin extends Sprite {
 
 
 
-class Bush {
+class Bush extends Sprite {
 	constructor(x,y) {
+		super();
 		this.moveTo(x,y);
-		this.addAnimation("bush_idle",432,256,16,17,4,4);
+		this.solid = true;
+		this.addAnimation("bush_idle",432,256,16,17,4,6);
 		this.setAnimation("bush_idle");
 	}
 	

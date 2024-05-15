@@ -13,6 +13,7 @@ class JumpingKaidi extends Enemy {
 	constructor(x,y) {
 		super();
 		this.setSize(16,12);
+		this.setHP(1,1);
 		this.moveTo(x,y);
 		this.heading = -1; //left
 		this.speed = 2;
@@ -54,6 +55,10 @@ class JumpingKaidi extends Enemy {
 		
 		this.changeDirection();
 		this.moveByVel();
+	}
+	
+	die = function() {
+		this.visible = false;
 	}
 }
 
