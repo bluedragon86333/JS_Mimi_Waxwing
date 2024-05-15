@@ -59,3 +59,8 @@ Added player attack
 Collected coins are permanently gone
 Added bushes
 Replaced Enemies class with ObjectHandler instance
+
+5/14/2024
+Things can properly flip now
+Player can kill enemies
+Redrew player attack

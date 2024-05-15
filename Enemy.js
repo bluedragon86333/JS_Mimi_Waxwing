@@ -3,9 +3,18 @@ class Enemy extends MovingSprite {
 		super();
 		this.type = "enemy";
 		this.setHitbox(0,0,this.width,this.height);
+		this.addAnimation("enemy_death",0,496,16,16,10,2);
 	}
 	
-
+	die = function() {
+		if (this.currentCostume.includes("death")) {
+			if (this.currentFrame >= 10 && this.frameTics >= 1) {
+				this.visible = false;
+			}
+		} else {
+			this.setAnimation("enemy_death");
+		}
+	}
 }
 
 
@@ -57,9 +66,7 @@ class JumpingKaidi extends Enemy {
 		this.moveByVel();
 	}
 	
-	die = function() {
-		this.visible = false;
-	}
+
 }
 
 class BigJumpingKaidi extends JumpingKaidi {
