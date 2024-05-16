@@ -74,11 +74,11 @@ class CollisionHandler {
 		}
 		
 		
-		for (let i = 0; i < bushes.objs.length; i++) {
-			if (sprite == player) {
+		for (let i = 0; i < bushes.objs.length; i++) { //BUSH DATA
+			if (sprite == player && !bushes.objs[i].currentCostume.name.includes("death")) {
 				let obj = bushes.objs[i];
 				let touching = sprite.isTouching(obj) && obj.solid;
-				//
+				//player collision
 				if (touching) {
 					sprite.reverseByVel();
 					
@@ -92,11 +92,14 @@ class CollisionHandler {
 					}
 				}
 			}
-			if (sprite.isTouching(bushes.objs[i]) && bushes.objs[i].solid) {
+			if (sprite.isTouching(bushes.objs[i]) && bushes.objs[i].solid) { //if enemy or something else collides here
 				//console.log("hit wall");
 				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
 				sprite.reachedEdge();
 				return;
+			}
+			if (player.attack.isTouching(bushes.objs[i])) {
+				bushes.objs[i].takeDamage(1);
 			}
 		}
 		

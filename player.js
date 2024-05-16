@@ -13,6 +13,7 @@ class Player extends MovingSprite {
 		this.setHitbox(1,8,14,12);
 		this.canLeaveScreen = true;
 		this.attack = new PlayerAttack(this.x,this.y,this.xv,this.yv);
+		this.canAttackAgain = true;
 		// ANIMATIONS ///////////////////////////////////////
 		this.addCostume("left_walk_0",0,48,16,16);
 		this.addCostume("right_walk_0",0,64,16,16);
@@ -41,8 +42,12 @@ class Player extends MovingSprite {
 	}
 	
 	keyInput = function () {
-		if (key.z && !this.attack.active) {
+		if (key.z && !this.attack.active && this.canAttackAgain) {
 			this.attack.activate(this.currentCostume.name);
+			this.canAttackAgain = false;
+		}
+		if (!key.z) {
+			this.canAttackAgain = true;
 		}
 		//this.speed = 2 + (key.space * 2);
 		let oldv = [this.xv,this.yv];
