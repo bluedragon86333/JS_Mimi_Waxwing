@@ -99,6 +99,7 @@ class CollisionHandler {
 				return;
 			}
 			if (player.attack.isTouching(bushes.objs[i])) {
+				//console.log("bush is dying");
 				bushes.objs[i].takeDamage(1);
 			}
 		}
@@ -111,11 +112,13 @@ class CollisionHandler {
 		if (side != false) {
 			if (currentLevelId != 0 && side == "left") {
 				player.x = game.window.width - player.width;
+				this.setHitbox(0,0,this.width,this.height);
 				currentLevelId--;
 				level.init();
 			}
 			if (currentLevelId < levelData[currentWorld].length - 1 && side == "right") {
 				player.x = 0;
+				player.attack.active = false;
 				currentLevelId++;
 				level.init();
 			}

@@ -39,7 +39,7 @@ class Bush extends MovingSprite {
 	
 	die = function() {
 		this.setHitbox(0,0,0,0);
-		console.log("died in Enemy.js");
+		//console.log("died in Enemy.js");
 		if (this.currentCostume.name.includes("death")) {
 			if (this.currentFrame >= 10 && this.frameTics >= 1) {
 				this.visible = false;

@@ -187,8 +187,8 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 			return false;
 		}
 		return (
-			this.x < other.x + other.hitbox.x + other.hitbox.width &&
-			this.x + this.width > other.x + other.hitbox.x &&
+			this.x + this.hitbox.x < other.x + other.hitbox.x + other.hitbox.width &&
+			this.x + this.hitbox.x + this.width > other.x + other.hitbox.x &&
 			this.y + this.hitbox.y < other.y + other.hitbox.y + other.hitbox.height &&
 			this.y + this.hitbox.y + this.hitbox.height > other.y + other.hitbox.y
 		);

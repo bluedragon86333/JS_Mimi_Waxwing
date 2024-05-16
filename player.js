@@ -178,12 +178,14 @@ class PlayerAttack extends MovingSprite {
 			if (!this.currentCostume.name.includes("side")) {
 				this.setAnimation("attack_side");
 			}
+			this.setHitbox(0,0,this.width,this.height);
 		} else if (playerName.includes("left")) {
 			this.x -= 0;
 			this.flip = true;
 			if (!this.currentCostume.name.includes("side")) {
 				this.setAnimation("attack_side");
 			}
+			this.setHitbox(-32,0,this.width,this.height);
 		}
 		else if (playerName.includes("up"))
 		{
@@ -192,6 +194,7 @@ class PlayerAttack extends MovingSprite {
 			if (!this.currentCostume.name.includes("up")) {
 				this.setAnimation("attack_up");
 			}
+			this.setHitbox(0,0,this.width,this.height);
 		}
 		else if (playerName.includes("down"))
 		{
@@ -200,6 +203,7 @@ class PlayerAttack extends MovingSprite {
 			if (!this.currentCostume.name.includes("down")) {
 				this.setAnimation("attack_down");
 			}
+			this.setHitbox(0,0,this.width,this.height);
 		}
 		
 		if (this.currentFrame >= 7 && this.frameTics >= 1) {
@@ -207,6 +211,6 @@ class PlayerAttack extends MovingSprite {
 			this.visible = false;
 		}
 		
-		this.setHitbox(0,0,this.width,this.height);
+		
 	}
 };
