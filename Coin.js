@@ -34,3 +34,25 @@ class Bush extends Sprite {
 	}
 }
 
+class Barrier extends Sprite {
+	constructor(x,y) {
+		super();
+		this.moveTo(x + 4,y);
+		this.solid = true;
+		this.setSize(8,16);
+		this.setHitbox(0,0,8,16);
+		this.addAnimation("descend",432,272,8,16,5,3);
+		this.addCostume("tall",432,272,8,16);
+		this.addCostume("short",464,272,8,16);
+		this.setCostume("tall");
+	}
+	
+	process = function() {
+		this.tick();
+		if (this.animationActive != -1) {
+			if (this.animations[this.animationActive].frames.length - 1 == this.currentFrame) {
+				this.setCostume("short");
+			}
+		}
+	}
+}
