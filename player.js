@@ -150,6 +150,7 @@ class PlayerAttack extends MovingSprite {
 		if (playerName.includes("right") || playerName.includes("left")) {
 			this.setAnimation("attack_side");
 			this.setSize(32,16);
+			
 		} else if (playerName.includes("up"))
 		{
 			this.setAnimation("attack_up");
@@ -200,5 +201,7 @@ class PlayerAttack extends MovingSprite {
 			this.active = false;
 			this.visible = false;
 		}
+		
+		this.setHitbox(0,0,this.width,this.height);
 	}
 };

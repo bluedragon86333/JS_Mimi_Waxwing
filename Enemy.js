@@ -7,7 +7,9 @@ class Enemy extends MovingSprite {
 	}
 	
 	die = function() {
-		if (this.currentCostume.includes("death")) {
+		this.setHitbox(0,0,0,0);
+		console.log("died in Enemy.js");
+		if (this.currentCostume.name.includes("death")) {
 			if (this.currentFrame >= 10 && this.frameTics >= 1) {
 				this.visible = false;
 			}
@@ -57,7 +59,6 @@ class JumpingKaidi extends Enemy {
 		this.yv = 0;
 		if ((this.animations[this.animationActive].name.includes("jump")) && (this.currentFrame == 2 || this.currentFrame == 3)) {
 			this.xv = this.speed * this.heading;
-			
 		} else {
 			this.xv = 0;
 		}

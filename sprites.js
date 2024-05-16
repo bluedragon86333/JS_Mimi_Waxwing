@@ -22,6 +22,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	hitbox = {"x":0,"y":0,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
 	visible = true;
 	solid = false; //if true, MovingSprites can't overlap with it
+	condemned = false;
 	
 	constructor() {
 		this.setHitbox(0,0,this.width,this.height);
@@ -132,8 +133,20 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	}
 	
 	animationProcess = function() {
+		
 		if (this.animationActive != -1) {
+			
 			let dur = this.animations[this.animationActive].frames[this.currentFrame].duration;
+			
+			
+			if (this.currentCostume.name.includes("death")) { //dead?
+				if (this.currentFrame >= this.animations[this.animationActive].frames.length - 1 && this.frameTics > dur) {
+					this.condemned = true;
+					this.visible = false;
+				}
+			}
+			
+			
 			//console.log("frameTics = " + this.frameTics + ", currentFrame = " + this.currentFrame, ", length of animation = " + this.animations[this.animationActive].frames.length);
 			if (dur <= this.frameTics) { //if time to go to next frame of animation...
 				//this.setCurrentCostume();
@@ -141,7 +154,10 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 				this.frameTics = 0; //set tics to 0
 				if (this.animations[this.animationActive].frames.length == this.currentFrame) { //if reached end of animation...
 					this.currentFrame = 0; //...go back to the beginning
-					
+					if (this.currentCostume.name.includes("death")) {
+						this.condemned = true;
+						
+					}
 				}
 				else {
 					//this.currentFrame++;
@@ -196,8 +212,10 @@ class MovingSprite extends Sprite {
 	}
 	
 	die = function() {
-		
+		//this.condemned = true;
+		console.log("died in sprites.js");
 	}
+	
 	takeDamage = function(howMuch) {
 		if (!this.invincible) {
 			this.hp -= howMuch;
@@ -314,6 +332,10 @@ class ObjectHandler {
 	{
 		for (let i = 0; i < this.objs.length; i++) {
 			this.objs[i].process();
+			if (this.objs[i].condemned) {
+				this.objs.splice(i,1);
+			}
+			
 		}
 	}
 	

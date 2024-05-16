@@ -25,7 +25,7 @@ class CollisionHandler {
 			
 			this.wall(enemies.objs[i]);
 			
-			if (player.isTouching(enemies.objs[i])) {
+			if (player.isTouching(enemies.objs[i]) && !enemies.objs[i].currentCostume.name.includes("death")) {
 				//console.log("took damage from enemy");
 				player.takeDamage(0.5);
 				//coins.coins.splice(i,1);

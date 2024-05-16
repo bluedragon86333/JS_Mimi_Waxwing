@@ -45,6 +45,7 @@ class UIHandler {
 		this.heartHandler.draw();
 		
 		text.print("x" + saveFile.carrots,12,13,false,"white4x6");
+		text.print("ENEMIES REMAINING:" + enemies.objs.length,4,20,false,"whiteText");
 	}
 }
 
