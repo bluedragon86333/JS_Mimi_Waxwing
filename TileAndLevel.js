@@ -232,7 +232,11 @@ class Level {
 					enemies.add(new BigJumpingKaidi(col * 16,row * 16 + game.window.tly));
 				}
 				if (cell == 7) {
-					bushes.add(new Bush(col * 16,row * 16 + game.window.tly));
+					let temp = new Bush(col * 16,row * 16 + game.window.tly,1);
+					if (!bushes.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
+						bushes.add(temp);
+					}
+					
 					//this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);
 					//this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
 				}

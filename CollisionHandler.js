@@ -101,6 +101,8 @@ class CollisionHandler {
 			if (player.attack.isTouching(bushes.objs[i])) {
 				//console.log("bush is dying");
 				bushes.objs[i].takeDamage(1);
+				bushes.collectedItems.push(currentWorld + "_" + currentLevelId + "_" + bushes.objs[i].toString());
+				//bushes.objs.splice(i,1);
 			}
 		}
 		
@@ -112,7 +114,7 @@ class CollisionHandler {
 		if (side != false) {
 			if (currentLevelId != 0 && side == "left") {
 				player.x = game.window.width - player.width;
-				this.setHitbox(0,0,this.width,this.height);
+				//player.setHitbox(0,0,this.width,this.height);
 				currentLevelId--;
 				level.init();
 			}

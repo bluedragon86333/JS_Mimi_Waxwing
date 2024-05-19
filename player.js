@@ -141,11 +141,16 @@ class PlayerAttack extends MovingSprite {
 		
 		this.active = false;
 		this.visible = false;
+		this.playerCode = "";
 		this.addCostume("empty",24,112,8,32);
 		this.addAnimation("attack_side",0,144,32,16,8,1);
 		this.addAnimation("attack_up",128,160,16,32,8,1);
 		this.addAnimation("attack_down",0,160,16,32,8,1);
 		this.setAnimation("attack_side");
+		
+		for (let i = 0; i < 3; i++) {
+			this.animations[this.animationActive].frames[i].width = 24;
+		}
 	}
 	
 	activate = function(playerName) {
@@ -153,15 +158,22 @@ class PlayerAttack extends MovingSprite {
 		this.active = true;
 		this.visible = true;
 		if (playerName.includes("right") || playerName.includes("left")) {
+			if (playerName.includes("right")) {
+				this.playerCode = "right";
+			} else {
+				this.playerCode = "left";
+			}
 			this.setAnimation("attack_side");
 			this.setSize(32,16);
 			
 		} else if (playerName.includes("up"))
 		{
+			this.playerCode = "up";
 			this.setAnimation("attack_up");
 			this.setSize(16,32);
 		}
 		else if (playerName.includes("down")) {
+			this.playerCode = "down";
 			this.setAnimation("attack_down");
 			this.setSize(16,32);
 		}
@@ -173,40 +185,60 @@ class PlayerAttack extends MovingSprite {
 		this.tick();
 		this.flip = false;
 		this.setSize(32,16);
-		if (playerName.includes("right")) {
+
+		if (!playerName.includes(this.playerCode)) {
+			this.visible = false;
+			this.active = false;
+		}
+		
+		if (playerName.includes("right")) 
+		{
+			this.playerCode = "right";
 			this.x += 16;
 			if (!this.currentCostume.name.includes("side")) {
 				this.setAnimation("attack_side");
 			}
-			this.setHitbox(0,0,this.width,this.height);
-		} else if (playerName.includes("left")) {
+			
+			if (this.currentFrame < 2) {
+				this.setHitbox(2,2,this.width - 20,this.height - 4);
+			} else {
+				this.setHitbox(2,2,this.width - 4,this.height - 4);
+			}
+			
+		} 
+		else if (playerName.includes("left")) 
+		{
+			this.playerCode = "left";
 			this.x -= 0;
 			this.flip = true;
 			if (!this.currentCostume.name.includes("side")) {
 				this.setAnimation("attack_side");
 			}
-			this.setHitbox(-32,0,this.width,this.height);
+			this.setHitbox(-30,2,this.width - 4,this.height - 4);
 		}
 		else if (playerName.includes("up"))
 		{
+			this.playerCode = "up";
 			this.y -= 32;
 			this.setSize(16,32);
 			if (!this.currentCostume.name.includes("up")) {
 				this.setAnimation("attack_up");
 			}
-			this.setHitbox(0,0,this.width,this.height);
+			this.setHitbox(2,2,this.width - 4,this.height - 4);
 		}
 		else if (playerName.includes("down"))
 		{
+			this.playerCode = "down";
 			this.y += 8;
 			this.setSize(16,32);
 			if (!this.currentCostume.name.includes("down")) {
 				this.setAnimation("attack_down");
 			}
-			this.setHitbox(0,0,this.width,this.height);
+			this.setHitbox(2,2,this.width - 4,this.height - 4);
 		}
 		
-		if (this.currentFrame >= 7 && this.frameTics >= 1) {
+
+		if (this.currentFrame >= this.animations[this.animationActive].frames.length - 1 && this.frameTics >= 1) {
 			this.active = false;
 			this.visible = false;
 		}
