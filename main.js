@@ -4,9 +4,10 @@ const screen = {
 	"height":192
 };
 
-var titleScreen = new TitleScreen();
+//var titleScreen = new TitleScreen();
 var startup = new SplashScreen();
 var deathScreen = new DeathScreen;
+var menuScreen = new Screen();
 var ready = false;
 
 function init() {
@@ -19,10 +20,10 @@ function init() {
 			break;
 		case "title":
 
-			titleScreen = new TitleScreen();
+			menuScreen = new TitleScreen();
 			break;
 		case "levelSelect":
-			
+			menuScreen = new LevelSelectScreen();
 			break;
 		case "game":
 			level = new Level(0,0);
@@ -53,8 +54,11 @@ function process() {
 			startup.process();
 			break;
 		case "title":
-			titleScreen.process();
+			menuScreen.process();
 			
+			break;
+		case "levelSelect":
+			menuScreen.process();
 			break;
 		case "game":
 			player.process();
@@ -62,6 +66,10 @@ function process() {
 			bushes.process();
 			collisions.process();
 			enemies.process();
+			break;
+		case "gameOver":
+			deathScreen.process()
+		
 			break;
 	}
 
@@ -74,9 +82,12 @@ function draw() {
 		case "startup":
 			startup.draw();
 			break;
-			case "title":
-			titleScreen.draw();
+		case "title":
+			menuScreen.draw();
 			
+			break;
+		case "levelSelect":
+			menuScreen.draw();
 			break;
 		case "game":
 			level.drawTiles();

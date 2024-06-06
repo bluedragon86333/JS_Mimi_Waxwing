@@ -1,5 +1,24 @@
-class SplashScreen {
+class Screen {
 	constructor() {
+		
+	}
+	
+	reset = function() {
+		
+	}
+	
+	process = function() {
+		
+	}
+	
+	draw = function() {
+		
+	}
+}
+
+class SplashScreen extends Screen {
+	constructor() {
+		super();
 		addAtlas("flea_logo",296,88,64,64);
 		addAtlas("dragon_logo",368,96,16,16);
 		this.timer = 0;
@@ -13,6 +32,7 @@ class SplashScreen {
 	process = function() {
 		if (this.timer == 30) {
 			game.status = "title";
+			init();
 		} else {
 			this.timer++;
 		}
@@ -26,8 +46,9 @@ class SplashScreen {
 
 
 
-class TitleScreen {
+class TitleScreen extends Screen{
 	constructor() {
+		super();
 		addAtlas("title_logo",360,0,152,48);
 		addAtlas("mimi_woods",288,0,72,88);
 		addAtlas("border",360,48,24,32);
@@ -37,7 +58,7 @@ class TitleScreen {
 	process = function() {
 
 		if (key.space && this.spaceReady) {
-			game.status = "game";
+			game.status = "levelSelect";
 			init();
 		}
 		if (!key.space) {
@@ -65,8 +86,9 @@ class TitleScreen {
 }
 
 
-class DeathScreen {
+class DeathScreen extends Screen {
 	constructor() {
+		super();
 		this.tic = 0;
 	}
 	
@@ -78,7 +100,7 @@ class DeathScreen {
 	}
 	
 	draw = function() {
-		this.process();
+		//this.process();
 		
 		drawer.fillScreen("black");
 		text.print("Game Over",128,140,true,"whiteText");

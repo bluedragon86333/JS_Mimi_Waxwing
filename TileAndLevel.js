@@ -226,10 +226,16 @@ class Level {
 				}
 				
 				if (cell == 5) {
-					enemies.add(new JumpingKaidi(col * 16,row * 16 + game.window.tly));
+					let temp = new JumpingKaidi(col * 16,row * 16 + game.window.tly);
+					if (!coins.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
+						enemies.add(temp);
+					}
 				}
 				if (cell == 6) {
-					enemies.add(new BigJumpingKaidi(col * 16,row * 16 + game.window.tly));
+					let temp = new BigJumpingKaidi(col * 16,row * 16 + game.window.tly);
+					if (!coins.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
+						enemies.add(temp);
+					}
 				}
 				if (cell == 7) {
 					let temp = new Bush(col * 16,row * 16 + game.window.tly,1);

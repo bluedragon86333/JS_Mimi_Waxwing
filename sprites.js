@@ -183,9 +183,11 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	}
 	
 	isTouching = function(other) {
+		/*
 		if (!this.visible || !other.visible) {
 			return false;
 		}
+		*/
 		return (
 			this.x + this.hitbox.x < other.x + other.hitbox.x + other.hitbox.width &&
 			this.x + this.hitbox.x + this.width > other.x + other.hitbox.x &&
