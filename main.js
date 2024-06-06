@@ -3,28 +3,26 @@ const screen = {
 	"width":256,
 	"height":192
 };
-const canvas = document.getElementById('game-canvas'); 
-var context = canvas.getContext('2d');
+
 var titleScreen = new TitleScreen();
+var startup = new SplashScreen();
+var deathScreen = new DeathScreen;
+var ready = false;
 
-
-		function DownloadCanvasAsImage(){
-			let downloadLink = document.createElement('a');
-			downloadLink.setAttribute('download', 'CanvasAsImage.png');
-			let canvas = document.getElementById('game-canvas');
-			let dataURL = canvas.toDataURL('image/png');
-			let url = dataURL.replace(/^data:image\/png/,'data:application/octet-stream');
-			downloadLink.setAttribute('href', url);
-			downloadLink.click();
-		}
-		
 function init() {
+	initAtlas();
+	loadImages();
 	console.log("init() called for " + game.status);
 	switch(game.status) {
 		case "startup":
-			initAtlas();
-			loadImages();
+			startup.reset();
+			break;
+		case "title":
+
 			titleScreen = new TitleScreen();
+			break;
+		case "levelSelect":
+			
 			break;
 		case "game":
 			level = new Level(0,0);
@@ -52,6 +50,9 @@ function init() {
 function process() {
 	switch(game.status) {
 		case "startup":
+			startup.process();
+			break;
+		case "title":
 			titleScreen.process();
 			
 			break;
@@ -71,6 +72,9 @@ function draw() {
 	clearScreen();
 	switch(game.status) {
 		case "startup":
+			startup.draw();
+			break;
+			case "title":
 			titleScreen.draw();
 			
 			break;
@@ -100,7 +104,7 @@ var mainloop = setInterval(function() {
 	process();
 	draw();
 	
-	if (1 == 0) {
+	if (ready) {
 		clearInterval(mainloop);
 	}
 }, 1000 / framerate);

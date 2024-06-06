@@ -1,7 +1,30 @@
 class SplashScreen {
+	constructor() {
+		addAtlas("flea_logo",296,88,64,64);
+		addAtlas("dragon_logo",368,96,16,16);
+		this.timer = 0;
+	}
 	
+	reset = function() {
+		this.timer = 0;
+	}
+
+
+	process = function() {
+		if (this.timer == 30) {
+			game.status = "title";
+		} else {
+			this.timer++;
+		}
+	}
 	
+	draw = function() {
+		drawer.fillScreen("black");
+		drawImgFromAtlas("dragon_logo",122,90);
+	}
 }
+
+
 
 class TitleScreen {
 	constructor() {
@@ -63,4 +86,3 @@ class DeathScreen {
 	}
 }
 
-var deathScreen = new DeathScreen;

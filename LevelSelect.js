@@ -20,7 +20,7 @@ class LevelPortal {
 	}
 }
 
-class LevelSelectInterface {
+class LevelSelectScreen {
 	constructor() {
 		this.levels = [];
 		this.addLevel

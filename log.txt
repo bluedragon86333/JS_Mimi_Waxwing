@@ -64,3 +64,13 @@ Replaced Enemies class with ObjectHandler instance
 Things can properly flip now
 Player can kill enemies
 Redrew player attack
+
+5/16/2024
+Fixed bushes; you can destroy them now
+Added enemy death animation
+
+5/18/2024
+Started adding LevelSelect code
+
+5/24/2024
+Added simple splashscreen

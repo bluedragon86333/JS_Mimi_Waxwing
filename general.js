@@ -1,4 +1,5 @@
-
+const canvas = document.getElementById('game-canvas'); 
+var context = canvas.getContext('2d');
 
 var images = [];
 const imgRoot = "./";
