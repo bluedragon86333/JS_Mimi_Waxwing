@@ -51,6 +51,47 @@ var levelData = [
 			"1111111111111111",
 			"lost_woods"
 		]
+	],
+	[ //world 1
+		[//level 0
+			"1111111111111111",
+			"1111030111404071",
+			"1000000311000071",
+			"1777777777700000",
+			"1000000004000000",
+			"1000000040400001",
+			"1030000004000001",
+			"1030000000040001",
+			"1000000000000001",
+			"1111111111111111",
+			"lost_woods"
+		],
+		[//level 1
+			"1111111111111111",
+			"1100333224040111",
+			"1104000220004111",
+			"0030400025000071",
+			"0000040000000000",
+			"1115004000000000",
+			"1110000000001111",
+			"1130303000001111",
+			"1000000404040404",
+			"4040404040404040",
+			"lost_woods"
+		],
+		[//level 2
+			"1111111111111111",
+			"1100000000000111",
+			"1100333300000111",
+			"1003000030000001",
+			"0000010000000001",
+			"0000011000000001",
+			"1400011050000001",
+			"4000011000050001",
+			"4035011000000011",
+			"1111111111111111",
+			"lost_woods"
+		]
 	]
 
 
@@ -58,10 +99,21 @@ var levelData = [
 
 ];
 
+
+
 var currentWorld = 0;
 var currentLevelId = 0;
 var currentLevel = levelData[currentWorld][currentLevelId];
+//const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 //May 2: rewrite this whole class (sorry future me)
+
+function getLevelDataById(id) {
+	currentWorld = id[1] - 1;//alphabet.indexOf(id[0]);
+	currentLevelId = 0; //fix later
+	currentLevel = levelData[currentWorld][currentLevelId];
+	return [currentWorld,currentLevelId];
+}
+
 
 class TileManager { //helper methods for Tile class.
 	constructor() {
@@ -164,13 +216,20 @@ class Level {
 
 
 	constructor(world,level) { //worlds = spaces currently in use. A single dungeon, overworld map, cave system, etc. Levels = screens.
-		currentWorld = world;
-		currentLevelId = level;
+		if (arguments.length == 1) { //input is array
+			currentWorld = world[0];
+			currentLevelId = world[1];
+		} else {
+			currentWorld = world;
+			currentLevelId = level;	
+		}
+
 		//currentLevel = levelData[world][level];
 		
 		this.spawnPoints = [];
 		
 	}
+	
 	
 	addSpawnPoint = function(world,level,row,col) {
 		this.spawnPoints.push([world,level,row,col]);

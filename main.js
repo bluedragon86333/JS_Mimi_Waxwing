@@ -26,7 +26,7 @@ function init() {
 			menuScreen = new LevelSelectScreen();
 			break;
 		case "game":
-			level = new Level(0,0);
+			level = new Level(getLevelDataById(menuScreen.selectedId));
 			saveFile.erase();
 			coins.init();
 			enemies.init();

@@ -78,3 +78,4 @@ Added simple splashscreen
 6/6/2024
 Fixed player collision glitch during invincibility frames
 Can successfully enter and exit the levelSelect status
+Can move between level portals in levelSelect
