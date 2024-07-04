@@ -22,6 +22,7 @@ class SplashScreen extends Screen {
 		addAtlas("flea_logo",296,88,64,64);
 		addAtlas("dragon_logo",368,96,16,16);
 		this.timer = 0;
+		this.duration = 15; //in frames
 	}
 	
 	reset = function() {
@@ -30,7 +31,7 @@ class SplashScreen extends Screen {
 
 
 	process = function() {
-		if (this.timer == 30) {
+		if (this.timer == this.duration) {
 			game.status = "title";
 			init();
 		} else {

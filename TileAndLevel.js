@@ -308,7 +308,7 @@ class Level {
 					//this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
 				}
 				if (cell == 8) {
-					let temp = new Barrier(col * 16,row * 16 + game.window.tly,1);
+					let temp = new Barrier(col * 16,row * 16 + game.window.tly,currentWorld,currentLevelId);
 					if (!barriers.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
 						barriers.add(temp);
 					}

@@ -54,7 +54,7 @@ class Bush extends MovingSprite {
 var barrierData = [];
 
 function addBarrierCondition (world,level,condition) {
-	barrierData.push(world,level,condition);
+	barrierData.push([world,level,condition]);
 }
 /*
 	KILL_ALL_ENEMIES
@@ -79,7 +79,7 @@ class Barrier extends Sprite {
 		this.solid = true;
 		this.setSize(8,16);
 		this.setHitbox(0,0,8,16);
-		this.addAnimation("descend",432,272,8,16,5,3);
+		this.addAnimation("descend",352,272,8,16,5,1);
 		this.addCostume("tall",432,272,8,16);
 		this.addCostume("short",464,272,8,16);
 		this.setCurrentCostume("tall");
@@ -88,28 +88,36 @@ class Barrier extends Sprite {
 		
 	}
 	
-	conditionProcess = function(world,level) {
-		let cond = getBarrierCondition(world,level);
-		switch(cond) {
-			case "KILL_ALL_ENEMIES":
-				if () {
-					
-				}
-			break;
-			case "GET_ALL_COINS":
-			
-			break;
+	conditionProcess = function() {
+		if (this.animationActive == -1 && this.currentCostume.name.includes("tall")) {
+			let cond = getBarrierCondition(this.world,this.level);
+			switch(cond) {
+				case "KILL_ALL_ENEMIES":
+					if (enemies.objs.length == 0) {
+						//console.log("descending");
+						this.setAnimation("descend");
+					}
+				break;
+				case "GET_ALL_COINS":
+				
+				break;
+			}
 		}
+
 	}
 	
 	process = function() {
+
 		this.tick();
 		if (this.animationActive != -1) {
+			console.log(this.animations[this.animationActive].frames.length - 1 + "," + this.currentFrame);
 			if (this.animations[this.animationActive].frames.length - 1 == this.currentFrame) {
+				this.animationActive = -1;
 				this.setCurrentCostume("short");
 				this.solid = false;
 			}
 		}
+		this.conditionProcess();
 	}
 }
 
