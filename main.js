@@ -63,6 +63,8 @@ function process() {
 		case "game":
 			player.process();
 			coins.process();
+			barriers.process();
+			trees.process();
 			bushes.process();
 			collisions.process();
 			enemies.process();
@@ -92,6 +94,8 @@ function draw() {
 		case "game":
 			level.drawTiles();
 			bushes.draw();
+			barriers.draw();
+			trees.draw();
 	
 			coins.draw();
 			enemies.draw();

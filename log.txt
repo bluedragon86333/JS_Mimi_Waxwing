@@ -79,3 +79,11 @@ Added simple splashscreen
 Fixed player collision glitch during invincibility frames
 Can successfully enter and exit the levelSelect status
 Can move between level portals in levelSelect
+
+6/29/2024
+Different level portals lead to different levels
+
+7/1/2024
+Different levels have different themes; added blue_woods theme
+Refactored trees and collision handler code
+Added static barriers

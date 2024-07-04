@@ -24,6 +24,7 @@ class JumpingKaidi extends Enemy {
 	constructor(x,y) {
 		super();
 		this.setSize(16,12);
+		this.setHitbox(0,0,this.width,this.height);
 		this.setHP(1,1);
 		this.moveTo(x,y);
 		this.heading = -1; //left
@@ -74,10 +75,12 @@ class BigJumpingKaidi extends JumpingKaidi {
 	constructor(x,y) {
 		super(x,y);
 		this.setSize(24,18);
+		this.setHitbox(0,0,this.width,this.height);
 		this.speed = 4;
 		this.deleteAllAnimations();
 		this.addAnimation("jump_left",0,416,24,18,5,2);
 		this.addAnimation("jump_right",0,434,24,18,5,2);
+		this.setAnimation("jump_left");
 	}
 }
 

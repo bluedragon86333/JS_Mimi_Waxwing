@@ -56,28 +56,28 @@ var levelData = [
 		[//level 0
 			"1111111111111111",
 			"1111030111404071",
-			"1000000311000071",
+			"1880000311000071",
 			"1777777777700000",
 			"1000000004000000",
 			"1000000040400001",
 			"1030000004000001",
 			"1030000000040001",
-			"1000000000000001",
+			"1888000000000001",
 			"1111111111111111",
-			"lost_woods"
+			"blue_woods"
 		],
 		[//level 1
 			"1111111111111111",
 			"1100333224040111",
 			"1104000220004111",
-			"0030400025000071",
+			"0030400026000071",
 			"0000040000000000",
 			"1115004000000000",
 			"1110000000001111",
 			"1130303000001111",
 			"1000000404040404",
 			"4040404040404040",
-			"lost_woods"
+			"blue_woods"
 		],
 		[//level 2
 			"1111111111111111",
@@ -90,7 +90,7 @@ var levelData = [
 			"4000011000050001",
 			"4035011000000011",
 			"1111111111111111",
-			"lost_woods"
+			"blue_woods"
 		]
 	]
 
@@ -126,6 +126,7 @@ class TileManager { //helper methods for Tile class.
 		
 		this.addTheme("red_castle",432,64);
 		this.addTheme("lost_woods",432,144);
+		this.addTheme("blue_woods",352,144);
 		this.theme = this.getTheme();
 		this.numsLikeWalls = "1"; //which types of objects are treated as walls in getCostumeName();
 	}
@@ -191,6 +192,11 @@ class TileManager { //helper methods for Tile class.
 		}
 		return currentLevel[10];
 	}
+	
+	setTheme = function() {
+		this.theme = this.getTheme();
+	}
+	
 	addTileCostume = function () {
 		
 	}
@@ -245,13 +251,16 @@ class Level {
 		coins.clear();
 		enemies.clear();
 		bushes.clear();
+		barriers.clear();
+		trees.clear();
 		
 		//resetting internal stuff
 		currentLevel = levelData[currentWorld][currentLevelId];
 		this.x =0;
 		this.y = 0;
 		this.tiles = [];
-			
+		tileManager.theme = tileManager.getTheme();
+		
 		for (let row = 0; row < 10; row++) {
 			for (let col = 0; col < 16; col++) {
 				let cell = currentLevel[row][col]
@@ -275,15 +284,8 @@ class Level {
 					}
 				}				
 				if (cell == 4) {
-					this.tiles[this.tiles.length - 1].solid = true;
-					this.tiles[this.tiles.length - 1].setSize(32,32);
-					this.tiles[this.tiles.length - 1].setHitbox(2,5,28,25);
-					
-					this.tiles[this.tiles.length - 1].addCostume("tree",432,224,32,32);
-					this.tiles[this.tiles.length - 1].addCostume("tree_clear_bg",464,224,32,32);
-					this.tiles[this.tiles.length - 1].setCurrentCostume("tree");
+					trees.add(new Tree(col * 16,row * 16 + game.window.tly,tileManager.theme[0]));
 				}
-				
 				if (cell == 5) {
 					let temp = new JumpingKaidi(col * 16,row * 16 + game.window.tly);
 					if (!coins.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
@@ -297,9 +299,18 @@ class Level {
 					}
 				}
 				if (cell == 7) {
-					let temp = new Bush(col * 16,row * 16 + game.window.tly,1);
+					let temp = new Bush(col * 16,row * 16 + game.window.tly,tileManager.theme[0]);
 					if (!bushes.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
 						bushes.add(temp);
+					}
+					
+					//this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);
+					//this.tiles[this.tiles.length - 1].setCurrentCostume("grass_tile");
+				}
+				if (cell == 8) {
+					let temp = new Barrier(col * 16,row * 16 + game.window.tly,1);
+					if (!barriers.collectedItems.includes(currentWorld + "_" + currentLevelId + "_" + temp.toString())) {
+						barriers.add(temp);
 					}
 					
 					//this.tiles[this.tiles.length - 1].addCostume("grass_tile",496,224,16,16);

@@ -39,7 +39,51 @@ class CollisionHandler {
 		}
 	}
 	
+	wall_primitive = function(sprite,obj) {
+		if (sprite == player) {
+			//console.log("v");
+			let touchingGrass = sprite.isTouching(obj) && obj.currentCostume.name.includes("grass_tile");
+			let touching = sprite.isTouching(obj) && obj.solid;
+			//
+			if (touching) {
+				sprite.reverseByVel();
+				
+				sprite.x += sprite.xv;
+				if (sprite.isTouching(obj) && obj.solid) {
+					sprite.x -= sprite.xv;
+				}
+				sprite.y += sprite.yv;
+				if (sprite.isTouching(obj) && obj.solid) {
+					sprite.y -= sprite.yv;
+				}
+				return sprite;
+			}
+		}
+		if (sprite.isTouching(obj) && obj.solid) {
+			//console.log("hit wall");
+			sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
+			sprite.reachedEdge();
+			//return;
+		}
+		return sprite;	
+	}
+	
 	wall = function(sprite) {
+		for (let i = 0; i < trees.objs.length; i++) {
+			sprite = this.wall_primitive(sprite,trees.objs[i]);
+		}
+		for (let i = 0; i < barriers.objs.length; i++) {
+			sprite = this.wall_primitive(sprite,barriers.objs[i]);
+		}
+		for (let i = 0; i < bushes.objs.length; i++) {
+			sprite = this.wall_primitive(sprite,bushes.objs[i]);
+			if (player.attack.isTouching(bushes.objs[i])) {
+			//console.log("bush is dying");
+			bushes.objs[i].takeDamage(1);
+			bushes.collectedItems.push(currentWorld + "_" + currentLevelId + "_" + bushes.objs[i].toString());
+			//bushes.objs.splice(i,1);
+			}
+		}
 		
 		for (let i = 0; i < level.tiles.length; i++) {
 			if (sprite == player) {
@@ -70,39 +114,6 @@ class CollisionHandler {
 				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
 				sprite.reachedEdge();
 				return;
-			}
-		}
-		
-		
-		for (let i = 0; i < bushes.objs.length; i++) { //BUSH DATA
-			if (sprite == player && !bushes.objs[i].currentCostume.name.includes("death")) {
-				let obj = bushes.objs[i];
-				let touching = sprite.isTouching(obj) && obj.solid;
-				//player collision
-				if (touching) {
-					sprite.reverseByVel();
-					
-					sprite.x += sprite.xv;
-					if (sprite.isTouching(obj) && obj.solid) {
-						sprite.x -= sprite.xv;
-					}
-					sprite.y += sprite.yv;
-					if (sprite.isTouching(obj) && obj.solid) {
-						sprite.y -= sprite.yv;
-					}
-				}
-			}
-			if (sprite.isTouching(bushes.objs[i]) && bushes.objs[i].solid) { //if enemy or something else collides here
-				//console.log("hit wall");
-				sprite.moveTo(sprite.x - sprite.xv,sprite.y - sprite.yv);
-				sprite.reachedEdge();
-				return;
-			}
-			if (player.attack.isTouching(bushes.objs[i])) {
-				//console.log("bush is dying");
-				bushes.objs[i].takeDamage(1);
-				bushes.collectedItems.push(currentWorld + "_" + currentLevelId + "_" + bushes.objs[i].toString());
-				//bushes.objs.splice(i,1);
 			}
 		}
 		
