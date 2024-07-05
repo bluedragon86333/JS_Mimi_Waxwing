@@ -19,7 +19,7 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 	canLeaveScreen = false;
 	animations = [];
 	dead = false;
-	hitbox = {"x":0,"y":0,"w":this.width,"h":this.height}; //used so that the player's head can peep in front of walls sometimes
+	hitbox = {"x":0,"y":0,"width":this.width,"height":this.height}; //used so that the player's head can peep in front of walls sometimes
 	visible = true;
 	solid = false; //if true, MovingSprites can't overlap with it
 	condemned = false;
@@ -170,11 +170,11 @@ class Sprite { //an assumption this class makes is that all costumes will be the
 		}
 	}
 	
-	setHitbox = function(x,y,width,height) {
+	setHitbox = function(x,y,w,h) {
 		this.hitbox.x = x;
 		this.hitbox.y = y;
-		this.hitbox.width = width;
-		this.hitbox.height = height;
+		this.hitbox.width = w;
+		this.hitbox.height = h;
 	}
 	
 	tick = function() { //use this.tick() to call this method in any subclasses of Sprite - contains all frame-to-frame processes necessary

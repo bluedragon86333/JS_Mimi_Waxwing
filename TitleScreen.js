@@ -16,11 +16,9 @@ class Screen {
 	}
 }
 
-class SplashScreen extends Screen {
+class LoadingScreen extends Screen {
 	constructor() {
 		super();
-		addAtlas("flea_logo",296,88,64,64);
-		addAtlas("dragon_logo",368,96,16,16);
 		this.timer = 0;
 		this.duration = 15; //in frames
 	}
@@ -41,9 +39,26 @@ class SplashScreen extends Screen {
 	
 	draw = function() {
 		drawer.fillScreen("black");
+		text.setFont("whiteText");
+	}
+}
+
+class SplashScreen extends LoadingScreen {
+	constructor() {
+		super();
+		addAtlas("flea_logo",296,88,64,64);
+		addAtlas("dragon_logo",368,96,16,16);
+		//this.timer = 0;
+		//this.duration = 15; //in frames
+	}
+	
+	draw = function() {
+		drawer.fillScreen("black");
 		drawImgFromAtlas("dragon_logo",122,90);
 	}
 }
+
+
 
 
 

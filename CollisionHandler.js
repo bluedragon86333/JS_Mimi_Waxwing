@@ -33,7 +33,7 @@ class CollisionHandler {
 				//return;
 			}
 			
-			if (player.attack.isTouching(enemies.objs[i])) {
+			if (player.attack.active && player.attack.isTouching(enemies.objs[i])) {
 				enemies.objs[i].takeDamage(1);
 			}
 		}
@@ -72,9 +72,11 @@ class CollisionHandler {
 		for (let i = 0; i < trees.objs.length; i++) {
 			sprite = this.wall_primitive(sprite,trees.objs[i]);
 		}
+		
 		for (let i = 0; i < barriers.objs.length; i++) {
 			sprite = this.wall_primitive(sprite,barriers.objs[i]);
 		}
+		
 		for (let i = 0; i < bushes.objs.length; i++) {
 			sprite = this.wall_primitive(sprite,bushes.objs[i]);
 			if (player.attack.isTouching(bushes.objs[i])) {

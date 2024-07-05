@@ -129,7 +129,7 @@ class Tree extends Sprite {
 		this.solid = true;
 		this.setSize(32,32);
 		this.setHitbox(2,5,28,25);
-		
+		//console.log(this.hitbox);
 		this.addCostume("lost_woods_tree",432,224,32,32);
 		this.addCostume("blue_woods_tree",352,224,32,32);
 		this.addCostume("lost_woods_tree_clear_bg",464,224,32,32);
