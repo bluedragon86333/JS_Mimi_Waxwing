@@ -60,7 +60,30 @@ class SplashScreen extends LoadingScreen {
 
 
 
+class PauseScreen extends Screen{
+	constructor() {
+		super();
 
+		this.spaceReady = false;
+	}
+	
+	process = function() {
+
+		if (key.space && this.spaceReady) {
+			game.status = "levelSelect";
+			init();
+		}
+		if (!key.space) {
+			this.spaceReady = true;
+		}
+	}
+	
+	draw = function() {
+		drawer.fillScreen("black");
+		text.setFont("whiteText");
+		text.print("PAUSED",8,8,false);
+	}
+}
 
 class TitleScreen extends Screen{
 	constructor() {

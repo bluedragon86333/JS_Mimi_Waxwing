@@ -87,3 +87,9 @@ Different level portals lead to different levels
 Different levels have different themes; added blue_woods theme
 Refactored trees and collision handler code
 Added static barriers
+
+7/4/2024
+Working on fixing BigJumpingKaidi floating glitches
+
+7/5/2024
+BigJumpingKaidi can now take damage, die, and have invincibility frames.

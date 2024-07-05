@@ -18,6 +18,26 @@ class Coin extends Sprite {
 	}
 }
 
+class LargeCoin extends Coin {
+	constructor(x,y,value) {
+		super();
+		this.moveTo(x,y);
+		this.setSize(16,16);
+		this.value = value;
+		this.addAnimation("coin_spin",80,0,16,16,4,3);
+		this.addCostume("default",80,0,16,16);
+		this.animationActive = 0;
+		
+		this.setAnimation("coin_spin");
+	}
+	
+	
+	
+	process = function() {
+		this.tick();
+	}
+}
+
 
 
 class Bush extends MovingSprite {
@@ -40,6 +60,7 @@ class Bush extends MovingSprite {
 	
 	die = function() {
 		this.setHitbox(0,0,0,0);
+		this.solid = false;
 		//console.log("died in Enemy.js");
 		if (this.currentCostume.name.includes("death")) {
 			if (this.currentFrame >= 10 && this.frameTics >= 1) {
@@ -61,7 +82,8 @@ function addBarrierCondition (world,level,condition) {
 	GET_ALL_COINS
 	
 */
-addBarrierCondition(1,0,"KILL_ALL_ENEMIES");
+addBarrierCondition(1,0,"GET_ALL_COINS");
+addBarrierCondition(1,1,"KILL_ALL_ENEMIES");
 
 function getBarrierCondition (world,level) {
 	for (let i = 0; i < barrierData.length; i++) {
@@ -99,7 +121,10 @@ class Barrier extends Sprite {
 					}
 				break;
 				case "GET_ALL_COINS":
-				
+					if (coins.objs.length == 0) {
+						//console.log("descending");
+						this.setAnimation("descend");
+					}
 				break;
 			}
 		}

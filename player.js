@@ -4,6 +4,7 @@ class Player extends MovingSprite {
 		super();
 		this.setVel(2,2);
 		this.moveTo(100,140);
+
 		this.width = 16;
 		this.height = 16;
 		this.speed = 2;
@@ -39,6 +40,15 @@ class Player extends MovingSprite {
 		this.invisLength = 60;
 		this.costumePrefix = "";
 		
+	}
+	
+	goToSpawnPoint = function (world,level) {
+		for (let i = 0; i < spawnPoints.length; i++) {
+			if (spawnPoints[i][0] == world && spawnPoints[i][1] == level) {
+				this.moveTo(spawnPoints[i][2],spawnPoints[i][3]);
+				break;
+			}
+		}
 	}
 	
 	keyInput = function () {

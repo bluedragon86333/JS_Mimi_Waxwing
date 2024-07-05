@@ -69,13 +69,13 @@ var levelData = [
 		[//level 0
 			"1111111111111111",
 			"1111030111404071",
-			"1880000311000071",
-			"1777777777700000",
-			"1000000004000000",
-			"1000000040400001",
-			"1030000004000001",
-			"1030000000040001",
-			"1888000000000001",
+			"1700000311000071",
+			"1007000000000080",
+			"1000070004000080",
+			"1070000040400011",
+			"1888110000000011",
+			"1000111011407711",
+			"1000111111003331",
 			"1111111111111111",
 			"blue_woods"
 		],
@@ -230,6 +230,10 @@ class Tile extends Sprite{
 	}
 }
 
+
+
+
+		
 class Level {
 
 
@@ -245,15 +249,9 @@ class Level {
 
 		//currentLevel = levelData[world][level];
 		
-		this.spawnPoints = [];
-		
 	}
-	
-	
-	addSpawnPoint = function(world,level,row,col) {
-		this.spawnPoints.push([world,level,row,col]);
-	}
-	
+
+
 	
 	
 	init = function() {
@@ -266,6 +264,8 @@ class Level {
 		bushes.clear();
 		barriers.clear();
 		trees.clear();
+		
+		
 		
 		//resetting internal stuff
 		currentLevel = levelData[currentWorld][currentLevelId];

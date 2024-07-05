@@ -39,6 +39,7 @@ function init() {
 			//addAtlas("onion_green",32,16,16,32);
 			UI.init();
 			player = new Player();
+			player.goToSpawnPoint(currentWorld,currentLevelId);
 			level.init();
 			break;
 		case "gameOver":
