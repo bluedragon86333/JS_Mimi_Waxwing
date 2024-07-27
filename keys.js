@@ -1,4 +1,5 @@
 var key = {
+	"enter":false,
 	"up":false,
 	"down":false,
 	"right":false,
@@ -8,6 +9,10 @@ var key = {
 };
 
 document.body.onkeydown = function(e) {
+		if (e.keyCode == 13) {
+		key.enter = true;
+		//enter();
+	}
 	if (e.keyCode == 37) {
 		key.left = true;
 		//moveleft();
@@ -33,6 +38,9 @@ document.body.onkeydown = function(e) {
 }
 
 document.body.onkeyup = function(e) {
+	if (e.keyCode == 13) {
+		key.enter = false;
+	}	
 	if (e.keyCode == 37) {
 		key.left = false;
 	}

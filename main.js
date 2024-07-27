@@ -9,6 +9,7 @@ var startup = new SplashScreen();
 var deathScreen = new DeathScreen;
 var menuScreen = new Screen();
 var ready = false;
+var pauseScreen = new PauseScreen();
 
 function init() {
 	initAtlas();
@@ -42,12 +43,14 @@ function init() {
 			player.goToSpawnPoint(currentWorld,currentLevelId);
 			level.init();
 			break;
+		case "pause":
+			pauseScreen.init();
+			break;
 		case "gameOver":
 			deathScreen = new DeathScreen();
 			break;
 	}
 }
-
 
 function process() {
 	switch(game.status) {
@@ -69,6 +72,11 @@ function process() {
 			bushes.process();
 			collisions.process();
 			enemies.process();
+			
+			pauseScreen.process();
+			break;
+		case "pause":
+			pauseScreen.process();
 			break;
 		case "gameOver":
 			deathScreen.process()
@@ -78,6 +86,19 @@ function process() {
 
 }
 
+function levelDraw() {
+	level.drawTiles();
+	bushes.draw();
+	barriers.draw();
+	trees.draw();
+	
+	coins.draw();
+	enemies.draw();
+			
+	player.draw();
+	player.attack.draw();
+	UI.draw();
+}
 
 function draw() {
 	clearScreen();
@@ -93,17 +114,11 @@ function draw() {
 			menuScreen.draw();
 			break;
 		case "game":
-			level.drawTiles();
-			bushes.draw();
-			barriers.draw();
-			trees.draw();
-	
-			coins.draw();
-			enemies.draw();
-			
-			player.draw();
-			player.attack.draw();
-			UI.draw();
+			levelDraw();
+			break;
+		case "pause":
+			levelDraw();
+			pauseScreen.draw();
 			break;
 		case "gameOver":
 			deathScreen.draw();

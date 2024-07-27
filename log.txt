@@ -93,3 +93,8 @@ Working on fixing BigJumpingKaidi floating glitches
 
 7/5/2024
 BigJumpingKaidi can now take damage, die, and have invincibility frames.
+Player spawns in different places based on the level and SpawnPoints
+
+7/27/2024
+Added pausing
+Todo: make barriers of different colors that fall with different conditions; ex. orange falls with carrots and green with enemies; purple for both

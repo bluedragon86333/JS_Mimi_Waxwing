@@ -60,28 +60,36 @@ class SplashScreen extends LoadingScreen {
 
 
 
-class PauseScreen extends Screen{
+class PauseScreen extends Screen {
 	constructor() {
 		super();
 
-		this.spaceReady = false;
+		this.enterReady = false;
 	}
 	
 	process = function() {
-
-		if (key.space && this.spaceReady) {
-			game.status = "levelSelect";
-			init();
+		
+		if (key.enter && this.enterReady) {
+			this.enterReady = false;
+			
+			if (game.status == "game") {
+				game.status = "pause";
+				//init();
+			} else {
+				game.status = "game";
+			}
+			console.log("game status now " + game.status);
 		}
-		if (!key.space) {
-			this.spaceReady = true;
+		if (!key.enter) {
+			this.enterReady = true;
 		}
 	}
 	
 	draw = function() {
-		drawer.fillScreen("black");
+		drawer.fillScreen("#ffffff60");
+		
 		text.setFont("whiteText");
-		text.print("PAUSED",8,8,false);
+		text.print("PAUSED",8,176,false);
 	}
 }
 

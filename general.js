@@ -135,7 +135,7 @@ function rotateAndPaintImage ( context, image, angleInRad , positionX, positionY
 }
 
 class BasicDrawing {
-	fillRect = function(tlx,tly,width,height,color)
+	fillRect = function(tlx,tly,width,height,color, opacity)
 	{
 		context.fillStyle = color;
 		context.fillRect(tlx,tly,width,height);
@@ -159,6 +159,7 @@ class BasicDrawing {
 	fillScreen = function(color) {
 		this.fillRect(0,0,canvas.width,canvas.height,color);
 	}
+
 }
 
 var drawer = new BasicDrawing();
